@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.techology.entity.StudentInfo">
+		<id name="sId" type="java.lang.String">
+			<generator class="assigned" />
+		</id>
+		<property name="sName" />
+		<property name="sSex" />
+		<property name="sGrade" />
+		<property name="sIDCard" />
+		<property name="sIDBank" />
+		<property name="sPhone" />
+		<many-to-one name="sMajor" lazy="false"></many-to-one>
+		<many-to-one name="sSchool" lazy="false"></many-to-one>
+		<!-- <set name="sRecords" table="StudentInfo_Record" lazy="false">
+		<key column="sId" />
+		<many-to-many class="com.techology.entity.Records"  column="reId" />
+		</set> -->
+	</class>
+</hibernate-mapping> 

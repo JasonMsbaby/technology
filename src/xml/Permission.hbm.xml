@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.techology.entity.Permission">
+		<id name="pId">
+			<generator class="assigned" />
+		</id>
+		<property name="pContent" />
+		<property name="pType" />
+		<property name="pLink" />
+		<property name="pAllow" />
+		<property name="pShow" />
+		<property name="pOrder" />
+	</class>
+</hibernate-mapping> 

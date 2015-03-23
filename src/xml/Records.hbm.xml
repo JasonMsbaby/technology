@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.techology.entity.Records">
+		<id name="reId">
+			<generator class="identity" />
+		</id>
+		<property name="reGrade" />
+		<property name="reJoinTime" />
+		<property name="reWriteTime" />
+		<property name="reWritePerson" />
+		
+		<property name="reSchool"  />
+		
+		<property name="reCheckPerson" />
+		<property name="reCheckPersonAdmin" />
+		<property name="reGiveStatus" />
+
+		<property name="reAdress" />
+		<property name="reCheckStatus" />
+		<property name="recheckSuggestion" />
+
+		<property name="reCheckStatusAdmin" />
+		<property name="recheckSuggestionAdmin" />
+
+		<property name="reStudentMoneny" />
+		<property name="reTeacherMoney" />
+		<property name="reProjectName" />
+		<many-to-one name="reCompetition" lazy="false"></many-to-one>
+
+		<list name="reStudentInfo" table="StudentInfo_Record" lazy="false">
+			<key column="reId" />
+			<index column="StudentInfo_Record" />
+			<many-to-many class="com.techology.entity.StudentInfo"
+				column="sId" />
+		</list>
+		<list name="reTeacherInfo" table="TeacherInfo_Record" lazy="false">
+			<key column="reId" />
+			<index column="TeacherInfo_Record" />
+			<many-to-many class="com.techology.entity.TeacherInfo"
+				column="sId" />
+		</list>
+	</class>
+</hibernate-mapping> 
