@@ -11,12 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.alibaba.fastjson.JSON;
 import com.techology.base.BaseController;
 import com.techology.common.Help;
 import com.techology.entity.Major;
 import com.techology.entity.Records;
-import com.techology.entity.School;
 import com.techology.entity.StudentInfo;
 import com.techology.entity.TeacherInfo;
 import com.techology.entity.User;

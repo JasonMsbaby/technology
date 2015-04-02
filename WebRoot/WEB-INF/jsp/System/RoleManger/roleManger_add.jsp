@@ -36,8 +36,8 @@
 							placeholder="角色名称" /> <input id="permission" type="hidden"
 							name="rPermission" />
 							<!-- 角色级别只允许添加院级级院级以下 【李成鹏添加】 -->
-							<input type="radio" name="rLevel" value="3" />院级
-							<input type="radio" name="rLevel" value="4" />普通级别
+							<input type="radio" id="leve1" name="rLevel" value="3" /><label for="leve1">院级</label>
+							<input type="radio" id="leve2" name="rLevel" value="4" /><label for="leve2">普通级别</label>
 					</div>
 				</div>
 				<div class="form-group">

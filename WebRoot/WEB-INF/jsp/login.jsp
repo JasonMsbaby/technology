@@ -58,9 +58,9 @@
 							</div>
 							<div class="form-group">
 								<div class="field">
-									<input type="text" class="input" placeholder="填写右侧的验证码"
-										data-validate="required:请填写右侧的验证码" /> <img
-										src="style/pintuer/images/passcode.jpg" width="80" height="32"
+									<input name="code2" type="text" class="input" placeholder="填写右侧的验证码"
+										data-validate="required:请填写右侧的验证码" /> 
+										<img onclick="this.src='getCode.html'" src="getCode.html" width="80" height="32"
 										class="passcode" />
 								</div>
 							</div>

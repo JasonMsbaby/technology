@@ -64,7 +64,7 @@ public class MyHandlerInterceptorAdapter extends HandlerInterceptorAdapter {
 				uri.length() - 5);
 		System.err.println(action);
 		// 判断用户访问的是否是登录页
-		if (compare(action, "login,login_submit")) {
+		if (compare(action, "login,login_submit,getCode")) {
 			return super.preHandle(request, response, handler);
 		} else {
 			// 判断用户是否登录

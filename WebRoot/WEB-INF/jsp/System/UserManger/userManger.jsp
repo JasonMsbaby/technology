@@ -28,10 +28,10 @@
 				href="userManger.html">刷新</a>
 			 <a style="float: right;"
 				class="button border-blue button-little" href="userManger_add.html">添加用户</a>
-				<a style="float: right;"
+				<!-- <a style="float: right;"
 				class="button border-red button-little" href="erroruser_delete.html">清理非法用户</a>
 				<a style="float: right;margin-right: 5px;"
-				class="button border-red button-little"  href="addOfficeMangerUser.html" onclick="return confirm('教务处涉及诸多权限，确定要添加教务处管理员用户？')">！添加教务处用户</a>
+				class="button border-red button-little"  href="addOfficeMangerUser.html" onclick="return confirm('教务处涉及诸多权限，确定要添加教务处管理员用户？')">！添加教务处用户</a> -->
 		</div>
 		<div class="panel-body">
 			<table class="table table-hover">

@@ -126,7 +126,6 @@ public class UserServices {
 	 * @return
 	 */
 	public List<User> getAllUsersByPage(int currentPage, int count) {
-		
 		return userDao.get((currentPage-1)*count, count);
 	}
 	
@@ -164,7 +163,7 @@ public class UserServices {
 	 * @return
 	 */
 	public List<User> officeget(int page, int count) {
-		return userDao.officeGet((page-1)*count, count,new String[]{"uRole"}, "uId", "1");
+		return userDao.officeGet((page-1)*count, count,new String[]{"uRole"}, "uId", "0");
 	}
 	/**
 	 * 获取非法用户

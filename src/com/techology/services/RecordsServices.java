@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.dialect.function.VarArgsSQLFunction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +31,7 @@ import com.techology.entity.User;
 @Service
 @Transactional
 public class RecordsServices {
+
 	@Resource
 	private RecordsDao recordsDao;
 	@Resource
@@ -53,9 +56,13 @@ public class RecordsServices {
 		if (level == 1 || level == 2) {// 教务处管理员或者超级管理员
 			return recordsDao.get((page - 1) * 10, 10);
 		} else if (level == 3) {// 院系管理员
-			return recordsDao.get((page - 1) * 10, 10,new String[]{"reSchool"},"reId",String.valueOf(currentUser.getuSchool().getsId()));
+			return recordsDao.get((page - 1) * 10, 10,
+					new String[] { "reSchool" }, "reId",
+					String.valueOf(currentUser.getuSchool().getsId()));
 		} else {// 普通教师
-			return recordsDao.get((page - 1) * 10, 10,new String[]{"reWritePerson"},"reId",String.valueOf(currentUser.getuName()));
+			return recordsDao.get((page - 1) * 10, 10,
+					new String[] { "reWritePerson" }, "reId",
+					String.valueOf(currentUser.getuName()));
 		}
 
 	}
@@ -142,8 +149,9 @@ public class RecordsServices {
 					"reCheckStatusAdmin", "reCheckStatus" },
 					"reWriteTime desc", "0", "1");
 		} else if (roleLevel == 3) {// 当前用户为院级管理员//获取本院的自己没有审核的
-			return recordsDao.get((currentPage - 1) * 10, 10,
-					new String[] { "reCheckStatus","reSchool"}, "reWriteTime desc", "0",String.valueOf(currentUser.getuSchool().getsId()));
+			return recordsDao.get((currentPage - 1) * 10, 10, new String[] {
+					"reCheckStatus", "reSchool" }, "reWriteTime desc", "0",
+					String.valueOf(currentUser.getuSchool().getsId()));
 		} else {// 当前用户为普通教师，没有权限进行审核
 			return null;
 		}
@@ -154,28 +162,34 @@ public class RecordsServices {
 	 * 获取待审核记录的数目
 	 */
 	public String getWaitCheckCount(User currentUser) {
-		int level=currentUser.getuRole().getrLevel();
-		String str="";
-		if(level==1||level==2){//超级管理员或者教务处管理员
-			str+="{";
-			str+="\"role\":"+1+",";
-			str+="\"content\":[{";
-			int waitCount=recordsDao.getCount(new String[] { "reCheckStatus","reCheckStatusAdmin" }, "1","0");
-			str+="\"wait\":"+waitCount+"}]}";
-		}else if(level==3){//院级管理员
-			str+="{";
-			str+="\"role\":"+3+",";
-			str+="\"content\":[{";
-			int waitCount=recordsDao.getCount(new String[] { "reCheckStatus","reSchool" }, "0",String.valueOf(currentUser.getuSchool().getsId()));
-			int passCount=recordsDao.getCount(new String[] { "reCheckStatusAdmin","reSchool" }, "-1",String.valueOf(currentUser.getuSchool().getsId()));
-			str+="\"wait\":"+waitCount+",";
-			str+="\"pass\":"+passCount+"}]}";
-		}else{//教师用户
-			str+="{";
-			str+="\"role\":"+4+",";
-			str+="\"content\":[{";
-			int passCount=recordsDao.getCount(new String[] { "reWritePerson","reCheckStatus" },currentUser.getuName() ,"-1");
-			str+="\"pass\":"+passCount+"}]}";
+		int level = currentUser.getuRole().getrLevel();
+		String str = "";
+		if (level == 1 || level == 2) {// 超级管理员或者教务处管理员
+			str += "{";
+			str += "\"role\":" + 1 + ",";
+			str += "\"content\":[{";
+			int waitCount = recordsDao.getCount(new String[] { "reCheckStatus",
+					"reCheckStatusAdmin" }, "1", "0");
+			str += "\"wait\":" + waitCount + "}]}";
+		} else if (level == 3) {// 院级管理员
+			str += "{";
+			str += "\"role\":" + 3 + ",";
+			str += "\"content\":[{";
+			int waitCount = recordsDao.getCount(new String[] { "reCheckStatus",
+					"reSchool" }, "0",
+					String.valueOf(currentUser.getuSchool().getsId()));
+			int passCount = recordsDao.getCount(new String[] {
+					"reCheckStatusAdmin", "reSchool" }, "-1",
+					String.valueOf(currentUser.getuSchool().getsId()));
+			str += "\"wait\":" + waitCount + ",";
+			str += "\"pass\":" + passCount + "}]}";
+		} else {// 教师用户
+			str += "{";
+			str += "\"role\":" + 4 + ",";
+			str += "\"content\":[{";
+			int passCount = recordsDao.getCount(new String[] { "reWritePerson",
+					"reCheckStatus" }, currentUser.getuName(), "-1");
+			str += "\"pass\":" + passCount + "}]}";
 		}
 		return str;
 
@@ -244,6 +258,44 @@ public class RecordsServices {
 		}
 		return map_tch;
 
+	}
+
+	/**
+	 * 根据获奖比赛的类型获取所有国赛的获奖记录
+	 * 
+	 * @return
+	 */
+	public List<Records> getAllByCompetionLevel(String years, String grade) {
+		//通过比赛的等级获取该等级的比赛有哪些
+		List<Competition> competition = competitionDao.getAllByLevelLike(grade);
+		if (competition.size()>0) {
+			String str = "(";
+			for (Competition c : competition) {
+				str += c.getcID() + ",";
+			}
+			str = str.substring(0, str.length() - 1);
+			str += ")";
+			//获取所有查询出来的比赛去获取所对应的比赛记录
+			return recordsDao.getAllByIn(str, years);
+		} else{
+			return null;
+		}
+	}
+	public List<Records> getAllByCompetionLevel(String years) {
+		//通过比赛的等级获取该等级的比赛有哪些
+		List<Competition> competition = competitionDao.getAllByLevelLike();
+		if (competition.size()>0) {
+			String str = "(";
+			for (Competition c : competition) {
+				str += c.getcID() + ",";
+			}
+			str = str.substring(0, str.length() - 1);
+			str += ")";
+			//获取所有查询出来的比赛去获取所对应的比赛记录
+			return recordsDao.getAllByIn(str, years);
+		} else{
+			return null;
+		}
 	}
 
 }

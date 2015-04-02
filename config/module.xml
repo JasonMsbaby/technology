@@ -1,47 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nav>
-	<nav1 id="01" content="项目管理" type="0" allow="" link="" show="1" order="1">
-		<nav2 id="11" content="项目管理" type="01" allow="competitionManager" link="competitionManager" show="1" order="1">
-			<nav3 id="51" content="编辑" type="11" allow="competitionManager_edit,competitionManager_edit_submit,rewardSetting_getrLevelDistinct" link="competitionManager_edit" show="0"
-				order="2">
+	<nav1 id="01" content="项目管理" type="0" allow="" link="" show="1"
+		order="1">
+		<nav2 id="11" content="项目管理" type="01" allow="competitionManager"
+			link="competitionManager" show="1" order="1">
+			<nav3 id="51" content="编辑" type="11"
+				allow="competitionManager_edit,competitionManager_edit_submit,rewardSetting_getrLevelDistinct"
+				link="competitionManager_edit" show="0" order="2">
 			</nav3>
-			<nav3 id="52" content="删除" type="11" allow="competitionManager_delete" link="competitionManager_delete" show="0" order="3">
+			<nav3 id="52" content="删除" type="11" allow="competitionManager_delete"
+				link="competitionManager_delete" show="0" order="3">
 			</nav3>
-			<nav3 id="53" content="新增" type="11" allow="competitionManager_add,competitionManager_add_submit,rewardSetting_getrLevelDistinct" link="competitionManager_add" show="0" order="4">
+			<nav3 id="53" content="新增" type="11"
+				allow="competitionManager_add,competitionManager_add_submit,rewardSetting_getrLevelDistinct"
+				link="competitionManager_add" show="0" order="4">
 			</nav3>
 		</nav2>
-		<nav2 id="28" content="项目奖励设置" type="01" allow="rewardSetting" link="rewardSetting" show="1" order="4">
-			<nav3 id="55" content="新增" type="28" allow="rewardSetting_add,rewardSetting_add_submit" link="rewardSetting_add" show="0" order="1"></nav3>
-			<nav3 id="56" content="删除" type="28" allow="rewardSetting_delete" link="rewardSetting_delete" show="0" order="2"></nav3>
-			<nav3 id="69" content="编辑" type="28" allow="rewardSetting_edit,rewardSetting_edit_submit" link="rewardSetting_edit" show="0" order="3"></nav3>
-		</nav2>
-	</nav1>
-
-	<nav1 id="02" content="成果管理" type="0" allow="" link="" show="1" order="2">
-		<nav2 id="14" content="录入成果" type="02" allow="RecordsManger_add,RecordsManger_add_submit,getRewardByCompetition" link="RecordsManger_add" show="1" order="1">
-		</nav2>
-		<nav2 id="15" content="成果管理" type="02" allow="RecordsManger" link="RecordsManger" show="1" order="2">
-			<nav3 id="70" content="查看详情" type="15" allow="RecordsManger_detail" link="RecordsManger_detail" show="0"
-				order="1">
-			</nav3>
-			<nav3 id="53" content="编辑" type="15" allow="RecordsManger_edit,RecordsManger_edit_submit,RecordsManger_detail_getStudentInfoById,RecordsManger_detail_getTeacherInfoById,getRewardByCompetition" link="RecordsManger_edit" show="0"
-				order="2">
-			</nav3>
-			<nav3 id="54" content="删除" type="15" allow="RecordsManger_delete" link="RecordsManger_delete" show="0"
-				order="3">
-			</nav3>
+		<nav2 id="28" content="项目奖励设置" type="01" allow="rewardSetting"
+			link="rewardSetting" show="1" order="4">
+			<nav3 id="55" content="新增" type="28"
+				allow="rewardSetting_add,rewardSetting_add_submit" link="rewardSetting_add"
+				show="0" order="1"></nav3>
+			<nav3 id="56" content="删除" type="28" allow="rewardSetting_delete"
+				link="rewardSetting_delete" show="0" order="2"></nav3>
+			<nav3 id="69" content="编辑" type="28"
+				allow="rewardSetting_edit,rewardSetting_edit_submit" link="rewardSetting_edit"
+				show="0" order="3"></nav3>
 		</nav2>
 	</nav1>
 
-	<nav1 id="03" content="成果审核" type="0" allow="" link="" show="1" order="3">
-		<nav2 id="17" content="待审核" type="03" allow="RecordsCheck,RecordsCheck_deal,getWaitCheckNum,RecordsCheck_deal_defeat,RecordsCheck_deal_pass" link="RecordsCheck" show="1" order="1">
+	<nav1 id="02" content="成果管理" type="0" allow="" link="" show="1"
+		order="2">
+		<nav2 id="14" content="录入成果" type="02"
+			allow="RecordsManger_add,RecordsManger_add_submit,getRewardByCompetition"
+			link="RecordsManger_add" show="1" order="1">
+		</nav2>
+		<nav2 id="15" content="成果管理" type="02" allow="RecordsManger"
+			link="RecordsManger" show="1" order="2">
+			<nav3 id="70" content="查看详情" type="15" allow="RecordsManger_detail"
+				link="RecordsManger_detail" show="0" order="1">
+			</nav3>
+			<nav3 id="53" content="编辑" type="15"
+				allow="RecordsManger_edit,RecordsManger_edit_submit,RecordsManger_detail_getStudentInfoById,RecordsManger_detail_getTeacherInfoById,getRewardByCompetition"
+				link="RecordsManger_edit" show="0" order="2">
+			</nav3>
+			<nav3 id="54" content="删除" type="15" allow="RecordsManger_delete"
+				link="RecordsManger_delete" show="0" order="3">
+			</nav3>
 		</nav2>
 	</nav1>
 
-	<nav1 id="05" content="院系管理" type="0" allow="" link="" show="1" order="5">
-		<nav2 id="22" content="添加院系" type="05" allow="schoolManger_add,schoolManger_add_submit" link="schoolManger_add" show="1" order="1">
+	<nav1 id="03" content="成果审核" type="0" allow="" link="" show="1"
+		order="3">
+		<nav2 id="17" content="待审核" type="03"
+			allow="RecordsCheck,RecordsCheck_deal,getWaitCheckNum,RecordsCheck_deal_defeat,RecordsCheck_deal_pass"
+			link="RecordsCheck" show="1" order="1">
 		</nav2>
-		<nav2 id="23" content="院系管理" type="05" allow="schoolManger" link="schoolManger" show="1" order="2">
+	</nav1>
+
+	<nav1 id="05" content="院系管理" type="0" allow="" link="" show="1"
+		order="5">
+		<nav2 id="22" content="添加院系" type="05"
+			allow="schoolManger_add,schoolManger_add_submit" link="schoolManger_add"
+			show="1" order="1">
+		</nav2>
+		<nav2 id="23" content="院系管理" type="05" allow="schoolManger" link="schoolManger"
+			show="1" order="2">
 			<nav3 id="57" content="编辑" type="23" allow="" link="" show="0"
 				order="1">
 			</nav3>
@@ -51,42 +75,68 @@
 		</nav2>
 	</nav1>
 
-	<nav1 id="06" content="系统设置" type="0" allow="" link="" show="1" order="6">
-		<nav2 id="24" content="用户管理" type="06" allow="userManger" link="userManger" show="1" order="1">
-			<nav3 id="68" content="添加" type="24" allow="userManger_add,userManger_add_submit" link="userManger_add" show="0"
-				order="1">
+	<nav1 id="06" content="系统设置" type="0" allow="" link="" show="1"
+		order="6">
+		<nav2 id="24" content="用户管理" type="06" allow="userManger" link="userManger"
+			show="1" order="1">
+			<nav3 id="68" content="添加" type="24"
+				allow="userManger_add,userManger_add_submit" link="userManger_add"
+				show="0" order="1">
 			</nav3>
-			<nav3 id="59" content="编辑" type="24" allow="userManger_edit,userManger_edit_submit" link="userManger_edit" show="0"
-				order="2">
+			<nav3 id="59" content="编辑" type="24"
+				allow="userManger_edit,userManger_edit_submit" link="userManger_edit"
+				show="0" order="2">
 			</nav3>
-			<nav3 id="60" content="删除" type="24" allow="userManger_delete" link="userManger_delete" show="0"
-				order="3">
-			</nav3>
-		</nav2>
-		<nav2 id="25" content="角色管理" type="06" allow="roleManger" link="roleManger" show="1" order="2">
-			<nav3 id="61" content="添加" type="25" allow="roleManger_add,roleManger_add_submit" link="roleManger_add" show="0"
-				order="1">
-			</nav3>
-			<nav3 id="62" content="编辑" type="25" allow="roleManger_edit,roleManger_edit_submit" link="roleManger_edit" show="0"
-				order="2">
-			</nav3>
-			<nav3 id="63" content="删除" type="25" allow="roleManger_delete" link="roleManger_delete" show="0"
-				order="3">
+			<nav3 id="60" content="删除" type="24" allow="userManger_delete"
+				link="userManger_delete" show="0" order="3">
 			</nav3>
 		</nav2>
-		<nav2 id="26" content="权限管理" type="06" allow="permissionManger" link="permissionManger" show="0" order="3">
-			<nav3 id="64" content="编辑" type="26" allow="" show="0"
+		<nav2 id="25" content="角色管理" type="06" allow="roleManger" link="roleManger"
+			show="1" order="2">
+			<nav3 id="61" content="添加" type="25"
+				allow="roleManger_add,roleManger_add_submit" link="roleManger_add"
+				show="0" order="1">
+			</nav3>
+			<nav3 id="62" content="编辑" type="25"
+				allow="roleManger_edit,roleManger_edit_submit" link="roleManger_edit"
+				show="0" order="2">
+			</nav3>
+			<nav3 id="63" content="删除" type="25" allow="roleManger_delete"
+				link="roleManger_delete" show="0" order="3">
+			</nav3>
+		</nav2>
+		<nav2 id="26" content="权限管理" type="06" allow="permissionManger"
+			link="permissionManger" show="0" order="3">
+			<nav3 id="64" content="编辑" type="26" allow="" show="0" order="1">
+			</nav3>
+			<nav3 id="65" content="初始化" type="26" allow="permissionManger_init"
+				link="permissionManger_init" show="1" order="2">
+			</nav3>
+		</nav2>
+		<nav2 id="27" content="数据库管理" type="06" allow="dbbacList,DB_delete" link="dbbacList"
+			show="1" order="3">
+			<nav3 id="66" content="备份" type="27" allow="dbbacup" link="dbbacup" show="0"
 				order="1">
 			</nav3>
-			<nav3 id="65" content="初始化" type="26" allow="permissionManger_init" link="permissionManger_init" show="1"
+			<nav3 id="67" content="还原" type="27" allow="DB_load" link="DB_load" show="0"
 				order="2">
 			</nav3>
 		</nav2>
-		<nav2 id="27" content="数据库管理" type="06" allow="dbbacList" link="dbbacList" show="1" order="3">
-			<nav3 id="66" content="备份" type="27" allow="" link="" show="0"
-				order="1">
+	</nav1>
+	<nav1 id="71" content="导出报表" type="0" allow="" link="" show="1"
+		order="5">
+		<nav2 id="72" content="导出报表" type="71" allow="exportExcel" link="exportExcel" show="1"
+			order="1">
+			<nav3 id="73" content="导出竞赛级别认定、承办单位汇总表" type="72" allow="exportExcel1" link="exportExcel1" show="0"
+				order="2">
 			</nav3>
-			<nav3 id="67" content="还原" type="27" allow="" link="" show="0"
+			<nav3 id="74" content="导出竞赛类别等级、奖励规定一览表" type="72" allow="exportExcel2" link="exportExcel2" show="0"
+				order="2">
+			</nav3>
+			<nav3 id="75" content="导出学生奖励发放表(学生)" type="72" allow="exportExcel3" link="exportExcel3" show="0"
+				order="2">
+			</nav3>
+			<nav3 id="76" content="导出竞赛国家级和省级奖励统计表(教师)" type="72" allow="exportExcel4" link="exportExcel4" show="0"
 				order="2">
 			</nav3>
 		</nav2>

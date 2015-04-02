@@ -90,6 +90,9 @@ public interface BaseDao<T> {
 	 */
 	List<T> get(int pageIndex, int count, String[] colums, String orderColum,
 			String... parmeters);
+	
+	//List<T> get(colums, String orderColum,
+		//	String in);
 	/**
 	 * 教务处分页获取实体数据【李成鹏添加】
 	 * @param pageIndex
@@ -119,5 +122,4 @@ public interface BaseDao<T> {
 	 *  @author Andyxq
 	 * */
 	List<String> getDistinct(String field, Map<String,String> conditions);
-	
 }
