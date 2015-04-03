@@ -43,7 +43,8 @@ $(function(){
 					<th>获奖等级</th>
 					<th>参赛时间</th>
 					<th>提交人</th>
-					<th>审核状态</th>
+					<th>院级审核状态</th>
+					<th>教务处审核状态</th>
 					<th>填写时间</th>
 					<th>操作</th>
 				</tr>
@@ -59,9 +60,12 @@ $(function(){
 						<c:if test="${li.reCheckStatus==0||li.reCheckStatus==null}">待审核</c:if>
 						<c:if test="${li.reCheckStatus==1}">审核通过</c:if>
 						<c:if test="${li.reCheckStatus==-1}">审核未通过</c:if>
-						
 						</td>
-						
+						<td>
+						<c:if test="${li.reCheckStatusAdmin==0||li.reCheckStatusAdmin==null}">待审核</c:if>
+						<c:if test="${li.reCheckStatusAdmin==1}">审核通过</c:if>
+						<c:if test="${li.reCheckStatusAdmin==-1}">审核未通过</c:if>
+						</td>
 						<td>${li.reWriteTime}</td>
 						<td>
 						<a class="button border-green button-little"

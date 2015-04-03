@@ -197,8 +197,9 @@ public class RecordsController extends BaseController {
 				}
 			}
 			records.setReWriteTime(Help.getCurrentTime());
-			records.setReWritePerson(((User) getSession("currentUser"))
-					.getuName());
+			User u=(User) getSession("currentUser");
+			records.setReWritePerson(u.getuName());
+			records.setReSchool(u.getuSchool().getsId());
 			recordsServices.update(records);
 			response.getWriter().print(
 					Help.getScript("修改成功", "RecordsManger.html"));
@@ -269,7 +270,7 @@ public class RecordsController extends BaseController {
 	}
 
 	/**
-	 * 审核通过
+	 * 审核未通过
 	 * 
 	 * @param id
 	 * @return

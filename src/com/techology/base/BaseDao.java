@@ -122,4 +122,6 @@ public interface BaseDao<T> {
 	 *  @author Andyxq
 	 * */
 	List<String> getDistinct(String field, Map<String,String> conditions);
+	
+	List<T> query(String sql,String ...para);
 }

@@ -3,7 +3,7 @@
   type="WEB"
   name="technology"
   id="myeclipse.1419520868715"
-  context-root="/techology"
+  context-root="/technology"
   j2ee-spec="5.0"
   archive="technology.war">
   <attributes>

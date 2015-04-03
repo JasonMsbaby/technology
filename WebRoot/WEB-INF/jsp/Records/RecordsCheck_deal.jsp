@@ -72,9 +72,9 @@
 				<tr>
 					<td class="td_label">院系领导审核状态</td>
 					<td class="td_content"><c:if
-							test="${li.reCheckStatus==0||li.reCheckStatus==null}">待审核</c:if>
-						<c:if test="${li.reCheckStatus==1}">审核通过</c:if> <c:if
-							test="${li.reCheckStatus==-1}">审核未通过</c:if></td>
+							test="${detail.reCheckStatus==0||detail.reCheckStatus==null}">待审核</c:if>
+						<c:if test="${detail.reCheckStatus==1}">审核通过</c:if> <c:if
+							test="${detail.reCheckStatus==-1}">审核未通过</c:if></td>
 				</tr>
 				<tr>
 					<td class="td_label">院系审核意见</td>

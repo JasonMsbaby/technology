@@ -29,11 +29,11 @@
 				<label class="icon-user" style="float:left;" for="username">用户名</label>
 				<input type="text" class="input" id="user" name="uName" size="10"
 					placeholder="用户名"
-					data-validate="required:请填写账号,length#>=5:账号长度不符合要求" /><br /> <label
+					data-validate="required:请填写账号" /><br /> <label
 					class="icon-key" for="username">密码</label> <input type="password"
 					class="input" id="pwd" name="uPwd" size="10" placeholder="密码"
-					data-validate="required:请填写密码,length#>=8:密码长度不符合要求" /><br /> <label
-					class="icon-users" for="username">选择角色</label> <select name="rId"
+					data-validate="required:请填写密码" /><br /> <label
+					class="icon-users">选择角色</label> <select name="rId"
 					class="input">
 					<c:forEach items="${roles}" var="li2">
 						<option value="${li2.rId}">${li2.rName}</option>
@@ -60,21 +60,4 @@
 
 	</div>
 </body>
-<script>
-	function check(){
-		var user=$("#user").val();
-		var pwd=$("#pwd").val();
-		if(user.length<=5){
-			alert("用户名长度不能低于6位！");
-			return false;
-		}else{
-			if(pwd.length<=7){
-			alert("密码长度不能少于8位");
-			return false;
-			}else{
-				return true;
-			}
-		}
-	}
-</script>
 </html>

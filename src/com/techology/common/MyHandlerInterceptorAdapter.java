@@ -60,8 +60,8 @@ public class MyHandlerInterceptorAdapter extends HandlerInterceptorAdapter {
 		// 获取请求地址
 		String uri = request.getRequestURI().toString().trim();
 		// 解析请求action
-		String action = uri.length() <= 11 ? "index" : uri.substring(11,
-				uri.length() - 5);
+		String action = uri.length() <= 12 ? "index" : uri.substring(12,
+				uri.length() -5);
 		System.err.println(action);
 		// 判断用户访问的是否是登录页
 		if (compare(action, "login,login_submit,getCode")) {

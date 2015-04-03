@@ -221,4 +221,17 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 		return query.list();
 	}
 
+	public List<T> query(String sql,String ...para) {
+		Session session=sessionFactory.getCurrentSession();
+		Query query=session.createQuery(sql);
+		int i=0;
+		for(String str:para){
+			query.setString(i, str);
+			i++;
+		}
+		return query.list();
+	}
+	
+	
+
 }

@@ -1,6 +1,6 @@
 //消息动态处理提醒
 $(function() {
-	//run();
+	run();
 	var interval;
 	function run() {
 		interval = setInterval(fun, "2000");
@@ -33,7 +33,7 @@ $(function() {
 							 }
 						 if(pass>0){
 								 $("#news_2").html("您有"+pass+"条审核未通过的信息,点击前往处理"); 
-								 $("#news_2").attr("href","RecordsManger.html");
+								 $("#news_2").attr("href","RecordsCheck.html");
 								 
 							 }
 						 if(wait==0&&pass==0)

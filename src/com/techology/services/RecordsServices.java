@@ -149,9 +149,13 @@ public class RecordsServices {
 					"reCheckStatusAdmin", "reCheckStatus" },
 					"reWriteTime desc", "0", "1");
 		} else if (roleLevel == 3) {// 当前用户为院级管理员//获取本院的自己没有审核的
-			return recordsDao.get((currentPage - 1) * 10, 10, new String[] {
+			return recordsDao
+					.query("from Records where reCheckStatus=?  or reCheckStatusAdmin=? and reSchool=?",
+							"0", "-1", String.valueOf(currentUser.getuSchool()
+									.getsId()));
+/*			return recordsDao.get((currentPage - 1) * 10, 10, new String[] {
 					"reCheckStatus", "reSchool" }, "reWriteTime desc", "0",
-					String.valueOf(currentUser.getuSchool().getsId()));
+					String.valueOf(currentUser.getuSchool().getsId()));*/
 		} else {// 当前用户为普通教师，没有权限进行审核
 			return null;
 		}
@@ -166,7 +170,7 @@ public class RecordsServices {
 		String str = "";
 		if (level == 1 || level == 2) {// 超级管理员或者教务处管理员
 			str += "{";
-			str += "\"role\":" + 1 + ",";
+			str += "\"role\":" + 2 + ",";
 			str += "\"content\":[{";
 			int waitCount = recordsDao.getCount(new String[] { "reCheckStatus",
 					"reCheckStatusAdmin" }, "1", "0");
@@ -266,34 +270,35 @@ public class RecordsServices {
 	 * @return
 	 */
 	public List<Records> getAllByCompetionLevel(String years, String grade) {
-		//通过比赛的等级获取该等级的比赛有哪些
+		// 通过比赛的等级获取该等级的比赛有哪些
 		List<Competition> competition = competitionDao.getAllByLevelLike(grade);
-		if (competition.size()>0) {
+		if (competition.size() > 0) {
 			String str = "(";
 			for (Competition c : competition) {
 				str += c.getcID() + ",";
 			}
 			str = str.substring(0, str.length() - 1);
 			str += ")";
-			//获取所有查询出来的比赛去获取所对应的比赛记录
+			// 获取所有查询出来的比赛去获取所对应的比赛记录
 			return recordsDao.getAllByIn(str, years);
-		} else{
+		} else {
 			return null;
 		}
 	}
+
 	public List<Records> getAllByCompetionLevel(String years) {
-		//通过比赛的等级获取该等级的比赛有哪些
+		// 通过比赛的等级获取该等级的比赛有哪些
 		List<Competition> competition = competitionDao.getAllByLevelLike();
-		if (competition.size()>0) {
+		if (competition.size() > 0) {
 			String str = "(";
 			for (Competition c : competition) {
 				str += c.getcID() + ",";
 			}
 			str = str.substring(0, str.length() - 1);
 			str += ")";
-			//获取所有查询出来的比赛去获取所对应的比赛记录
+			// 获取所有查询出来的比赛去获取所对应的比赛记录
 			return recordsDao.getAllByIn(str, years);
-		} else{
+		} else {
 			return null;
 		}
 	}
