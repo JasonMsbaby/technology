@@ -78,20 +78,23 @@ public class MyHandlerInterceptorAdapter extends HandlerInterceptorAdapter {
 					User user = (User) request.getSession().getAttribute(
 							"currentUser");
 					// 超级管理员拥有所有权限 【李成鹏修改】
-					if (user.getuRole().getrLevel() == 1||user.getuRole().getrLevel() == 2) {
+					if (user.getuRole().getrLevel().equals(Help.XIAOJI)) {
 						return super.preHandle(request, response, handler);
 					} else {
-						String[] permissions = user.getuRole().getrPermission()
-								.split(",");
-						for (String str : permissions) {
-							Permission permission = permissionServices
-									.getById(str);
-							String allow = permission.getpAllow();
-							if (compare(action, allow)) {
-								flag = true;
-								break;
+						String p=user.getuRole().getrPermission();
+						if(p!=null&&!p.equals("")){
+							String[] permissions = p.split(",");
+							for (String str : permissions) {
+								Permission permission = permissionServices
+										.getById(str);
+								String allow = permission.getpAllow();
+								if (compare(action, allow)) {
+									flag = true;
+									break;
+								}
 							}
 						}
+						
 						if (flag) {// 拥有权限
 							return super.preHandle(request, response, handler);
 						} else {// 没有权限
@@ -119,7 +122,7 @@ public class MyHandlerInterceptorAdapter extends HandlerInterceptorAdapter {
 		// 如果模块列表为空就初始化列表，初始化超级管理员
 		if (permissionServices.getAll().size() == 0) {
 			permissionServices.init();
-			Role role=new Role();
+			/*Role role=new Role();
 			role.setrLevel(2);
 			role.setrName("教务处管理员");
 			roleServices.save(role);
@@ -127,7 +130,7 @@ public class MyHandlerInterceptorAdapter extends HandlerInterceptorAdapter {
 			user.setuName("admin");
 			user.setuRole(role);
 			user.setuPwd("123");
-			userServices.save(user);
+			userServices.save(user);*/
 		}
 	}
 

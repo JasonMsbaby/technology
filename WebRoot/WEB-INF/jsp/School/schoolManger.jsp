@@ -4,27 +4,14 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<meta name="renderer" content="webkit">
+<jsp:include page="../Other/dropin.jsp"></jsp:include>
 <title>院系管理</title>
-<link rel="stylesheet" href="style/pintuer/css/pintuer.css">
-<script src="style/pintuer/js/jquery.js"></script>
-<script src="style/pintuer/js/pintuer.js"></script>
-<script src="style/pintuer/js/respond.js"></script>
-<script src="style/js/page.js"></script>
-<link type="image/x-icon" href="http://www.pintuer.com/favicon.ico"
-	rel="shortcut icon" />
-<link href="http://www.pintuer.com/favicon.ico" rel="bookmark icon" />
 </head>
 
-<body onload="document.body.scrollTop='0px'">
+<body style="min-height: 400px">
 	<div class="panel">
 		<div class="panel-head icon-bookmark">
-			院系管理
-			<a style="margin-left: 5px;color:blue;font-size: 10px;"
+			院系管理 <a style="margin-left: 5px;color:blue;font-size: 10px;"
 				href="schoolManger.html">刷新</a>
 		</div>
 		<div class="panel-body">
@@ -39,16 +26,15 @@
 					<tr>
 						<td>${li.sId}</td>
 						<td>${li.sName}</td>
-						<td><a class="dialogs" data-toggle="click" data-target="#mydialog${li.sId}" data-mask="1"
-							data-width="50%" style="color:#09c;cursor: pointer;">查看下设专业</a></td>
-						<td>
-						<a class="button border-blue button-little"
-							href="schoolManger_edit.html?sId=${li.sId}">编辑</a> 
-							<a
+						<td><a class="dialogs" data-toggle="click"
+							data-target="#mydialog${li.sId}" data-mask="1" data-width="50%"
+							style="color:#09c;cursor: pointer;">查看下设专业</a>
+						</td>
+						<td><a class="button border-blue button-little"
+							href="schoolManger_edit.html?sId=${li.sId}">编辑</a> <a
 							class="button border-red button-little"
 							href="schoolManger_delete.html?sId=${li.sId}"
-							onclick="return confirm('确认删除？')">删除</a>
-						</td>
+							onclick="return confirm('确认删除？')">删除</a></td>
 					</tr>
 				</c:forEach>
 			</table>
@@ -84,28 +70,24 @@
 			</select> 页
 		</div>
 	</div>
-	
-	
-	
-	
-	
 	<c:forEach items="${school}" var="li2">
-	<div id="mydialog${li2.sId}" style="height:500px;">
+		<div id="mydialog${li2.sId}" style="min-height: 200px">
 			<div class="dialog">
 				<div class="dialog-head">
-					<span class="close rotate-hover"></span> <strong><font color="#09c">${li2.sName}</font>设有以下专业</strong>
+					<span class="close rotate-hover"></span> <strong><font
+						color="#09c">${li2.sName}</font>设有以下专业</strong>
 				</div>
 				<div class="dialog-body">
 					<ul class="list-group">
 						<c:forEach items="${major}" var="li3">
-						<c:if test="${li3.mSchool.sId==li2.sId}">
-							<li>${li3.mName}</li>
-						</c:if>
+							<c:if test="${li3.mSchool.sId==li2.sId}">
+								<li>${li3.mName}</li>
+							</c:if>
 						</c:forEach>
 					</ul>
 				</div>
 			</div>
 		</div>
-		</c:forEach>
+	</c:forEach>
 </body>
 </html>

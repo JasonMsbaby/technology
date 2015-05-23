@@ -1,12 +1,15 @@
 package com.techology.services;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSON;
 import com.techology.dao.CompetitionDao;
 import com.techology.entity.Competition;
 
@@ -22,7 +25,28 @@ public class CompetitionServices {
 	public List<Competition> getAll(){
 		return competitionDao.get();
 	}
-	
+	/**
+	 * 根据条件模糊查找比赛项目
+	 * @param keyword
+	 * @return
+	 */
+	public String getAllJson(String keyword){
+		List<Competition> list=competitionDao.likeSearch(keyword);
+		String json="[";
+		for(Competition c:list){
+			json+="{\"id\":\""+c.getcID()+"\",";
+			if(c.getcName().contains("\"")){
+				c.setcName(c.getcName().replace("\"", "\'"));
+			}
+			if(c.getcName().contains("”")){
+				c.setcName(c.getcName().replace("“", "\'"));
+			}
+			json+="\"name\":\""+c.getcName()+"\"},";
+		}
+		json=json.substring(0, json.length()-1);
+		json+="]";
+		return json;
+	}
 	/**
 	 * 保存比赛项目
 	 * @return

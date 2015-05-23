@@ -136,35 +136,44 @@ public class RecordsController extends BaseController {
 	@RequestMapping("RecordsManger_add_submit")
 	public void RecordsManger_add_submit(HttpServletResponse response,
 			@ModelAttribute Records records) {
-		try {
-			// 学生信息处理
-			for (StudentInfo s : records.getReStudentInfo()) {
-				if (studentInfoServices.exit(s)) {
-					studentInfoServices.update(s);
-				} else {
-					studentInfoServices.save(s);
-				}
+		User user=(User) getSession().getAttribute("currentUser");
+		if(!user.getuRole().getrLevel().equals(Help.JIAOSHI)){
+			try {
+				response.getWriter().print(
+						Help.getScript("您并不是教师角色，无法进行成果提交", "RecordsManger_add.html"));
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			// 教师信息处理
-			for (TeacherInfo t : records.getReTeacherInfo()) {
-				if (teacherInfoServices.exit(t)) {
-					teacherInfoServices.update(t);
-				} else {
-					teacherInfoServices.save(t);
+		}else{
+			try {
+				// 学生信息处理
+				for (StudentInfo s : records.getReStudentInfo()) {
+					if (studentInfoServices.exit(s)) {
+						studentInfoServices.update(s);
+					} else {
+						studentInfoServices.save(s);
+					}
 				}
+				// 教师信息处理
+				for (TeacherInfo t : records.getReTeacherInfo()) {
+					if (teacherInfoServices.exit(t)) {
+						teacherInfoServices.update(t);
+					} else {
+						teacherInfoServices.save(t);
+					}
+				}
+				records.setReCheckStatus(0);
+				records.setReCheckStatusAdmin(0);
+				records.setReGiveStatus(0);
+				records.setReWriteTime(Help.getCurrentTime());
+				records.setReWritePerson(user.getuName());
+				records.setReSchool(user.getuSchool().getsId());
+				recordsServices.save(records);
+				response.getWriter().print(
+						Help.getScript("提交成功", "RecordsManger_add.html"));
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			records.setReCheckStatus(0);
-			records.setReCheckStatusAdmin(0);
-			records.setReGiveStatus(0);
-			records.setReWriteTime(Help.getCurrentTime());
-			User user=((User) getSession("currentUser"));
-			records.setReWritePerson(user.getuName());
-			records.setReSchool(user.getuSchool().getsId());
-			recordsServices.save(records);
-			response.getWriter().print(
-					Help.getScript("提交成功", "RecordsManger_add.html"));
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -177,35 +186,56 @@ public class RecordsController extends BaseController {
 	@RequestMapping("RecordsManger_edit_submit")
 	public void RecordsManger_edit_submit(HttpServletResponse response,
 			@ModelAttribute Records records) {
-		try {
-			// 学生信息处理
-			for (StudentInfo s : records.getReStudentInfo()) {
-				if (s.getsId() != null) {
-					if (studentInfoServices.exit(s)) {
-						studentInfoServices.update(s);
-					} else {
-						studentInfoServices.save(s);
+		User currentUser = (User) getSession("currentUser");
+		boolean flag = true;
+		if (currentUser.getuRole().getrLevel().equals(Help.JIAOSHI)) {
+			Records records2 = recordsServices.getById(records.getReId());
+			if (records2.getReCheckStatus() == 1
+					&& records2.getReCheckStatusAdmin() == 1) {
+				flag = false;
+				try {
+					response.getWriter().print(
+							Help.getScript("审核已通过，不能进行编辑",
+									"RecordsManger_add.html"));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else {
+
+			}
+		}
+		if (flag) {
+			try {
+				// 学生信息处理
+				for (StudentInfo s : records.getReStudentInfo()) {
+					if (s.getsId() != null) {
+						if (studentInfoServices.exit(s)) {
+							studentInfoServices.update(s);
+						} else {
+							studentInfoServices.save(s);
+						}
 					}
 				}
-			}
-			// 教师信息处理
-			for (TeacherInfo t : records.getReTeacherInfo()) {
-				if (teacherInfoServices.exit(t)) {
-					teacherInfoServices.update(t);
-				} else {
-					teacherInfoServices.save(t);
+				// 教师信息处理
+				for (TeacherInfo t : records.getReTeacherInfo()) {
+					if (teacherInfoServices.exit(t)) {
+						teacherInfoServices.update(t);
+					} else {
+						teacherInfoServices.save(t);
+					}
 				}
+				records.setReWriteTime(Help.getCurrentTime());
+				User u = (User) getSession("currentUser");
+				records.setReWritePerson(u.getuName());
+				records.setReSchool(u.getuSchool().getsId());
+				recordsServices.update(records);
+				response.getWriter().print(
+						Help.getScript("修改成功", "RecordsManger.html"));
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			records.setReWriteTime(Help.getCurrentTime());
-			User u=(User) getSession("currentUser");
-			records.setReWritePerson(u.getuName());
-			records.setReSchool(u.getuSchool().getsId());
-			recordsServices.update(records);
-			response.getWriter().print(
-					Help.getScript("修改成功", "RecordsManger.html"));
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
+
 	}
 
 	/**
@@ -251,12 +281,13 @@ public class RecordsController extends BaseController {
 		int idd = id == "" ? 0 : Integer.parseInt(id);
 		Records records = recordsServices.getById(idd);
 		User user = (User) getSession("currentUser");
-		if (user.getuRole().getrLevel() == 1
-				|| user.getuRole().getrLevel() == 2) {//当前登录角色为超级管理员或者教务处管理员
+		String roleLevel = user.getuRole().getrLevel();
+		if (roleLevel.equals(Help.XIAOJI)) {// 校级管理员
 			records.setReCheckStatusAdmin(1);
 			records.setReCheckPersonAdmin(user.getuName());
 			records.setRecheckSuggestionAdmin("通过");
-		} else {//当前用户为院级管理员
+		} else {// 院级管理员
+			records.setReCheckStatusAdmin(0);
 			records.setReCheckStatus(1);
 			records.setReCheckPerson(user.getuName());
 			records.setRecheckSuggestion("通过");
@@ -282,12 +313,16 @@ public class RecordsController extends BaseController {
 			int idd = id == "" ? 0 : Integer.parseInt(id);
 			Records records = recordsServices.getById(idd);
 			User user = (User) getSession("currentUser");
-			if (user.getuRole().getrLevel() == 1
-					|| user.getuRole().getrLevel() == 2) {
+			String roleLevel = user.getuRole().getrLevel();
+			if (roleLevel.equals(Help.XIAOJI)) {//校级管理员审核不通过
+				records.setReCheckStatus(0);
+				records.setReCheckPerson(null);
+				records.setRecheckSuggestion(null);
 				records.setReCheckStatusAdmin(-1);
 				records.setReCheckPersonAdmin(user.getuName());
 				records.setRecheckSuggestionAdmin(backMsg);
-			} else {
+			} else {//院级管理员审核不通过
+				records.setReCheckStatusAdmin(0);
 				records.setReCheckStatus(-1);
 				records.setReCheckPerson(user.getuName());
 				records.setRecheckSuggestion(backMsg);
@@ -361,8 +396,9 @@ public class RecordsController extends BaseController {
 	@RequestMapping("getWaitCheckNum")
 	public void getWaitCheckNum(HttpServletResponse response) {
 		try {
-			User currentUser=(User) getSession("currentUser");
-			response.getWriter().print(recordsServices.getWaitCheckCount(currentUser));
+			User currentUser = (User) getSession("currentUser");
+			response.getWriter().print(
+					recordsServices.getWaitCheckCount(currentUser));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -374,9 +410,12 @@ public class RecordsController extends BaseController {
 	@RequestMapping("getRewardByCompetition")
 	public void getRewardByCompetition(HttpServletResponse response) {
 		try {
-			response.getWriter().print(
-					recordsServices.getRewardByCompetition(getAttr("id")
-							.toString(), getAttr("grade").toString()));
+			if (getAttr("id") != null) {
+				String id = getAttr("id").toString();
+				String grade = getAttr("grade").toString();
+				response.getWriter().print(
+						recordsServices.getRewardByCompetition(id, grade));
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

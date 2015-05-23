@@ -2,12 +2,12 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.techology.entity.School">
+	<class name="com.techology.entity.School" table="technology_School">
 		<id name="sId">
 			<generator class="identity" />
 		</id>
 		<property name="sName" />
-		<set name="sMajor" cascade="all" lazy="false">
+		<set name="sMajor" cascade="none" lazy="false">
 			<!-- 指定外键名称，即外键表中的关联外键 -->
 			<key column="mSchool"></key>
 			<!-- 指定外键表类型，通常与list里面的泛型一致 -->

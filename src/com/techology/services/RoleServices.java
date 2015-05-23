@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.techology.common.Help;
 import com.techology.dao.RoleDao;
 import com.techology.entity.Role;
 import com.techology.entity.User;
@@ -29,8 +30,14 @@ public class RoleServices {
 	public Role getRoleByID(int id){
 		return roleDao.getById(id);
 	}
-	public List<Role> getRoles(){
-		return roleDao.get(new String[]{"rLevel"}, "rId", "2");
+
+	/**
+	 * 根据角色级别获取角色
+	 * @param level
+	 * @return
+	 */
+	public Role getRoleByLevel(String level){
+		return roleDao.get(new String[]{"rLevel"}, "rId", level).get(0);
 	}
 	/**
 	 * 分页获取所有角色
@@ -42,14 +49,22 @@ public class RoleServices {
 		return roleDao.get((page-1)*count, count);
 	}
 	/**
-	 * 院级管理员分页获取角色 【李成鹏添加】
+	 * 根据当前用户角色分页获取所有角色
 	 * @param page
 	 * @param count
 	 * @return
 	 */
-	public List<Role> getRolesByPage(int page,int count){
-		return roleDao.get((page-1)*count, count,new String[]{"rLevel"}, "rId", "4");
+	public List<Role> getAllRolesByPage(int page,int count,String level){
+		if(level.equals(Help.XIAOJI)){
+			return roleDao.get((page-1)*count, count);	
+		}else if(level.equals(Help.YUANJI)){
+			return roleDao.get((page-1)*count, count,new String[]{"rLevel"},"rId",Help.JIAOSHI);	
+		}else{
+			return null;
+		}
+		
 	}
+
 	/**
 	 * 添加用户时获取用户角色列表  【李成鹏添加】
 	 * 修改：张杰
@@ -57,11 +72,13 @@ public class RoleServices {
 	 * @return
 	 */
 	public List<Role> getUserRols(User user) {
-		int level=user.getuRole().getrLevel();
-		if(level==1||level==2){//如果为超级管理员或者是教务处管理员
+		String level=user.getuRole().getrLevel();
+		if(level.equals(Help.XIAOJI)){//如果校级管理员
 			return roleDao.get();
-		}else{//如果为院级管理员
-			return roleDao.get(new String[]{"rLevel"}, "rId", "4");
+		}else if(level.equals(Help.YUANJI)){//如果为院级管理员
+			return roleDao.get(new String[]{"rLevel"}, "rId",Help.JIAOSHI);
+		}else {//如果为教师
+			return null;
 		}
 	}
 	
@@ -71,6 +88,20 @@ public class RoleServices {
 	 */
 	public int getCount(){
 		return roleDao.getCount();
+	}
+	/**
+	 * 根据用户角色获取所有条数
+	 * @return
+	 */
+	public int getCount(String level){
+		if(level.equals(Help.XIAOJI)){
+			return roleDao.getCount();
+		}else if(level.equals(Help.YUANJI)){
+			return roleDao.getCount(new String[]{"rLevel"},Help.JIAOSHI);
+		}else{
+			return 0;
+		}
+		
 	}
 
 	/**

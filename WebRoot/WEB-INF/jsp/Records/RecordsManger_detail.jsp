@@ -3,17 +3,11 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<meta name="renderer" content="webkit">
+<jsp:include page="../Other/dropin.jsp"></jsp:include>
 <title>查看详情</title>
 <script type="text/javascript" src="style/js/jquery-1.7.2.min.js"></script>
 <link rel="stylesheet" href="style/datepicker/css/jquery-ui.css"
 	type="text/css" />
-<script src="style/pintuer/js/pintuer.js"></script>
-<link rel="stylesheet" href="style/pintuer/css/pintuer.css">
 <style type="text/css">
 .td_label {
 	font-weight: 700;
@@ -54,10 +48,6 @@
 					<tr>
 						<td class="td_label">参赛时间</td>
 						<td class="td_content">${detail.reJoinTime}</td>
-					</tr>
-					<tr>
-						<td class="td_label">比赛地点</td>
-						<td class="td_content">${detail.reAdress}</td>
 					</tr>
 					<tr>
 						<td class="td_label">院系领导审核状态</td>

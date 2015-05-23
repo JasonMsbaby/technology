@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+
+import com.techology.common.Help;
 import com.techology.dao.*;
 import com.techology.entity.*;
 
@@ -92,6 +94,23 @@ public class ExcelServices {
 		arry.add("竞赛级别");
 		arry.add("项目名称");
 		arry.add("获奖类别");
+		// 学生一
+		arry.add("学号");
+		arry.add("姓名");
+		arry.add("金额");
+		arry.add("性别");
+		arry.add("班级");
+		arry.add("身份证号");
+		arry.add("建行卡号");
+		// 学生二
+		arry.add("学号");
+		arry.add("姓名");
+		arry.add("金额");
+		arry.add("性别");
+		arry.add("班级");
+		arry.add("身份证号");
+		arry.add("建行卡号");
+		// 学生三
 		arry.add("学号");
 		arry.add("姓名");
 		arry.add("金额");
@@ -112,6 +131,7 @@ public class ExcelServices {
 		list.add(danwei * 2);
 		list.add(danwei * 6);
 		list.add(danwei * 2);
+
 		list.add(danwei * 3);
 		list.add(danwei * 2);
 		list.add(danwei * 1);
@@ -119,6 +139,23 @@ public class ExcelServices {
 		list.add(danwei * 4);
 		list.add(danwei * 4);
 		list.add(danwei * 4);
+
+		list.add(danwei * 3);
+		list.add(danwei * 2);
+		list.add(danwei * 1);
+		list.add(danwei * 1);
+		list.add(danwei * 4);
+		list.add(danwei * 4);
+		list.add(danwei * 4);
+
+		list.add(danwei * 3);
+		list.add(danwei * 2);
+		list.add(danwei * 1);
+		list.add(danwei * 1);
+		list.add(danwei * 4);
+		list.add(danwei * 4);
+		list.add(danwei * 4);
+
 		list.add(danwei * 2);
 		return list;
 	}
@@ -135,16 +172,17 @@ public class ExcelServices {
 		if (list != null && list.size() > 0) {
 			int i = 0;
 			for (Records r : list) {
+
+				i++;
+				ArrayList<String> cell = new ArrayList<String>();
+				cell.add(i + "");
+				cell.add(schoolServices.getByID(r.getReSchool()).getsName());
+				cell.add(r.getReCompetition().getcName());
+				cell.add(r.getReCompetition().getcLevel());
+				cell.add(r.getReProjectName());
+				cell.add(r.getReGrade());
 				List<StudentInfo> stuList = r.getReStudentInfo();
 				for (StudentInfo s : stuList) {
-					i++;
-					ArrayList<String> cell = new ArrayList<String>();
-					cell.add(i + "");
-					cell.add(schoolServices.getByID(r.getReSchool()).getsName());
-					cell.add(r.getReCompetition().getcName());
-					cell.add(r.getReCompetition().getcLevel());
-					cell.add(r.getReProjectName());
-					cell.add(r.getReGrade());
 					cell.add(s.getsId());
 					cell.add(s.getsName());
 					cell.add(recordsServices.distributeStuReward(r).get(
@@ -153,10 +191,9 @@ public class ExcelServices {
 					cell.add(s.getsGrade() + s.getsMajor().getmName());
 					cell.add(s.getsIDCard());
 					cell.add(s.getsIDBank());
-					cell.add("");
-					rows.add(cell);
 				}
-
+				cell.add("");
+				rows.add(cell);
 			}
 			return rows;
 		} else {
@@ -211,9 +248,9 @@ public class ExcelServices {
 	 */
 	public ArrayList<ArrayList<String>> getTeacherRecordData(String years) {
 		ArrayList<ArrayList<String>> rows = new ArrayList<ArrayList<String>>();
-		
+
 		List<Records> list = recordsServices.getAllByCompetionLevel(years);
-		if (list!=null&&list.size()>0) {
+		if (list != null && list.size() > 0) {
 			int i = 0;
 			for (Records r : list) {
 				List<TeacherInfo> tchList = r.getReTeacherInfo();
@@ -231,11 +268,12 @@ public class ExcelServices {
 					cell.add(t.gettSex());
 					cell.add(recordsServices.distributeTchReward(r).get(
 							t.gettId()));
-					
-					Reward re=rewardServices.getByLevelAndGrade(r.getReCompetition().getcLevel(),r.getReGrade());
-					if(re!=null){
+
+					Reward re = rewardServices.getByLevelAndGrade(r
+							.getReCompetition().getcLevel(), r.getReGrade());
+					if (re != null) {
 						cell.add(re.getrTeacher().split(":")[1]);
-					}else{
+					} else {
 						cell.add("-");
 					}
 					cell.add(t.gettIdcard());
@@ -265,12 +303,10 @@ public class ExcelServices {
 	public ArrayList<String> getRewardColumNames() {
 		ArrayList<String> str = new ArrayList<String>();
 		str.add("比赛级别");
-		str.add("国家级A类");
-		str.add("国家级B类");
-		str.add("省级A类");
-		str.add("省级B类");
-		str.add("市厅级");
-		str.add("校级");
+		String[] strings = Help.GRADE;
+		for (String s : strings) {
+			str.add(s);
+		}
 		return str;
 	}
 
@@ -310,8 +346,7 @@ public class ExcelServices {
 	private ArrayList<String> getRewardTeacher2() {
 		ArrayList<String> arry = new ArrayList<String>();
 		arry.add("教师奖励/元");
-		String[] names = new String[] { "国家级A类", "国家级B类", "省级A类", "省级B类",
-				"市厅级", "校级" };
+		String[] names = Help.GRADE;
 		for (String str : names) {
 			List<Reward> list = rewardServices.getByLevel(str);
 			Map<String, String> map = new HashMap<String, String>();
@@ -360,8 +395,7 @@ public class ExcelServices {
 	private ArrayList<String> getRewardTeacher1() {
 		ArrayList<String> arry = new ArrayList<String>();
 		arry.add("教师课时/课");
-		String[] names = new String[] { "国家级A类", "国家级B类", "省级A类", "省级B类",
-				"市厅级", "校级" };
+		String[] names = Help.GRADE;
 		for (String str : names) {
 			List<Reward> list = rewardServices.getByLevel(str);
 			Map<String, String> map = new HashMap<String, String>();
@@ -410,8 +444,7 @@ public class ExcelServices {
 	private ArrayList<String> getRewardStudent2() {
 		ArrayList<String> arry = new ArrayList<String>();
 		arry.add("学生奖励/元");
-		String[] names = new String[] { "国家级A类", "国家级B类", "省级A类", "省级B类",
-				"市厅级", "校级" };
+		String[] names = Help.GRADE;
 		for (String str : names) {
 			List<Reward> list = rewardServices.getByLevel(str);
 			Map<String, String> map = new HashMap<String, String>();
@@ -460,8 +493,7 @@ public class ExcelServices {
 	private ArrayList<String> getRewardStudent1() {
 		ArrayList<String> arry = new ArrayList<String>();
 		arry.add("学生学分/分");
-		String[] names = new String[] { "国家级A类", "国家级B类", "省级A类", "省级B类",
-				"市厅级", "校级" };
+		String[] names = Help.GRADE;
 		for (String str : names) {
 			List<Reward> list = rewardServices.getByLevel(str);
 			Map<String, String> map = new HashMap<String, String>();

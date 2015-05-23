@@ -11,6 +11,15 @@ import java.util.Date;
  */
 public class Help {
 
+	public static String YUANJI = "院级";
+	public static String XIAOJI = "校级";
+	public static String JIAOSHI = "教师";
+
+	public static String[] GRADE = new String[] { "国家级A", "国家级B", "省部级A",
+			"省部级B", "市厅级", "校级" };
+	public static String[] ORDER = new String[] { "特等奖", "一等奖", "二等奖", "三等奖",
+			"鼓励奖" };
+
 	/**
 	 * 返回弹窗并重定向
 	 * 
@@ -50,4 +59,5 @@ public class Help {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
 		return df.format(new Date());// new Date()为获取当前系统时间
 	}
+
 }

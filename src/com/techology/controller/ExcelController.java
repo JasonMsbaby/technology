@@ -11,9 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.techology.base.BaseController;
-import com.techology.common.ExcelUtil;
+import com.techology.common.ExcelExport;
 import com.techology.common.Help;
 import com.techology.common.RewardExcelUtil;
+import com.techology.services.CompetitionServices;
 import com.techology.services.ExcelServices;
 import com.techology.services.RewardService;
 
@@ -33,6 +34,8 @@ public class ExcelController extends BaseController {
 	private ExcelServices excelServices;
 	@Resource
 	private RewardService rewardService;
+	@Resource
+	private CompetitionServices competitionServices;
 
 	// ****************页面初始化区****************************************
 	/**
@@ -40,6 +43,7 @@ public class ExcelController extends BaseController {
 	 */
 	@RequestMapping("exportExcel")
 	public String exportExcel() {
+		setAttr("grade", Help.GRADE);
 		return "Other/exportExcel";
 	}
 
@@ -56,7 +60,8 @@ public class ExcelController extends BaseController {
 	// ****************页面提交处理区****************************************
 	@RequestMapping("exportExcel1")
 	public void exportExcel1(HttpServletResponse response) {
-		ExcelUtil excelUtil = new ExcelUtil(excelServices.getCompetionTitle(),
+		ExcelExport excelUtil = new ExcelExport(
+				excelServices.getCompetionTitle(),
 				excelServices.getCompetionContent(),
 				"德州学院大学生科技文化竞赛级别认定、承办单位汇总表", "德州学院大学生科技文化竞赛级别认定、承办单位汇总表",
 				excelServices.getCompetionColumWidth());
@@ -83,6 +88,10 @@ public class ExcelController extends BaseController {
 
 	}
 
+	/**
+	 * 待修改
+	 * @param response
+	 */
 	@RequestMapping("exportExcel3")
 	public void exportExcel3(HttpServletResponse response) {
 		String years = getAttr("years").toString();
@@ -90,7 +99,7 @@ public class ExcelController extends BaseController {
 		ArrayList<ArrayList<String>> listData = excelServices
 				.getStudentRecordData(years, grade);
 		if (listData != null) {
-			ExcelUtil excelUtil = new ExcelUtil(
+			ExcelExport excelUtil = new ExcelExport(
 					excelServices.getStudentRecordColums(), listData,
 					"德州学院学生获得大学生科技文化竞赛国家级奖励统计表", "德州学院" + years
 							+ "年度学生获得大学生科技文化竞赛" + grade + "奖励统计表",
@@ -117,9 +126,10 @@ public class ExcelController extends BaseController {
 		ArrayList<ArrayList<String>> listData = excelServices
 				.getTeacherRecordData(years);
 		if (listData != null) {
-			ExcelUtil excelUtil = new ExcelUtil(
-					excelServices.getTeacherRecordColums(), listData,
-					"德州学院"+years+"年度教师指导学生获得大学生科技文化竞赛国家级和省级奖励统计表", "德州学院"+years+"年度教师指导学生获得大学生科技文化竞赛国家级和省级奖励统计表",
+			ExcelExport excelUtil = new ExcelExport(
+					excelServices.getTeacherRecordColums(), listData, "德州学院"
+							+ years + "年度教师指导学生获得大学生科技文化竞赛国家级和省级奖励统计表", "德州学院"
+							+ years + "年度教师指导学生获得大学生科技文化竞赛国家级和省级奖励统计表",
 					excelServices.getTeacherRecordColumsWidth());
 			try {
 				excelUtil.exportExcel(response);

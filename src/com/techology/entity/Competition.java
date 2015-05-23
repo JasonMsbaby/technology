@@ -14,8 +14,8 @@ public class Competition {
 	private String cLevel;//比赛级别 校赛 or 国赛
 	private String cOrganize;//比赛主办单位
 	private String cOrganization;//承办单位
-	private String cType;//比赛类型--个人赛 or 团体赛
-	public int getcID() {
+	/*private int cSchool;//所属院系或单位
+*/	public int getcID() {
 		return cID;
 	}
 	public void setcID(int cID) {
@@ -45,13 +45,12 @@ public class Competition {
 	public void setcOrganization(String cOrganization) {
 		this.cOrganization = cOrganization;
 	}
-	
-	public String getcType() {
-		return cType;
+	/*public int getcSchool() {
+		return cSchool;
 	}
-	public void setcType(String cType) {
-		this.cType = cType;
-	}
+	public void setcSchool(int cSchool) {
+		this.cSchool = cSchool;
+	}*/
 	
 	
 }

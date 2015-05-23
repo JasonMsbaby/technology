@@ -3,22 +3,10 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<meta name="renderer" content="webkit">
+<jsp:include page="../../Other/dropin.jsp"></jsp:include>
 <title>角色编辑</title>
-<link rel="stylesheet" href="style/pintuer/css/pintuer.css">
-<script src="style/pintuer/js/jquery.js"></script>
-<script src="style/pintuer/js/pintuer.js"></script>
-<script src="style/pintuer/js/respond.js"></script>
-
 <link rel="stylesheet" href="style/css/permission.css">
 <script src="style/js/permission.js"></script>
-<link type="image/x-icon" href="http://www.pintuer.com/favicon.ico"
-	rel="shortcut icon" />
-<link href="http://www.pintuer.com/favicon.ico" rel="bookmark icon" />
 </head>
 
 <body>
@@ -33,26 +21,28 @@
 					<div class="field">
 						<input type="hidden" value="${role.rId}" name="rId" /> <input
 							type="text" class="input" name="rName" size="30"
-							value="${role.rName}" />
-							<!--教务处和超级管理员不予以修改用户级别 【李成鹏添加】  -->
-							<c:if test="${role.rLevel>=3}">
-							选择角色级别： 
-							<input type="radio" name="rLevel" checked="checked" value="${role.rLevel}" />${role.rLevel==3? '院级':'普通级别'}
-							<input type="radio" name="rLevel" value="${7-role.rLevel}" />${7-role.rLevel==3? '院级':'普通级别'}
-							</c:if>
-							<input id="permission" type="hidden"
-							value="${role.rPermission}" name="rPermission" />
-							<input id="level" type="hidden"
-							value="${role.rLevel}" name="rLevel" />
+							value="${role.rName}" /> <input id="permission" type="hidden"
+							value="${role.rPermission}" name="rPermission" /> 
 					</div>
 				</div>
-				<!-- 编辑权限 ,超级管理员无需编辑权限 【李成鹏修改】-->
-				<c:if test="${role.rLevel>1}">
+				<div class="form-group">
+					<div class="label">
+						<label class="icon-user" for="username">级别修改</label>
+					</div>
+					<div class="field">
+						【当前角色：${role.rLevel}】 &nbsp;&nbsp;&nbsp; <input type="radio"
+							id="leve1" name="rLevel" value="校级" /><label for="leve1">校级</label>
+						<input type="radio" id="leve2" name="rLevel" value="院级" /><label
+							for="leve2">院级</label> <input type="radio" id="leve3"
+							name="rLevel" value="教师" /><label for="leve3">教师</label>
+					</div>
+				</div>
 				<div class="panel">
 					<div class="panel-head icon-list">
 						权限修改
 						<div style="float: right;">
-							<input id="allCheck" type="checkbox" value="全选"  /><label for="allCheck">全选</label>
+							<input id="allCheck" type="checkbox" value="全选" /><label
+								for="allCheck">全选</label>
 						</div>
 					</div>
 					<div id="permission_panel" class="panel-body">
@@ -103,7 +93,6 @@
 						</ul>
 					</div>
 				</div>
-				</c:if>
 			</div>
 			<div class="panel-foot">
 				<input style="width:100%;" id="btn_submit" class="button bg-main"

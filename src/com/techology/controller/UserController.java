@@ -51,19 +51,8 @@ public class UserController extends BaseController {
 	public String userManger(String page) {
 		int currentPage = page == null ? 1 : Integer.parseInt(page);
 		User user = (User) request.getSession().getAttribute("currentUser");// 获取登陆用户信息
-		int rid = user.getuRole().getrLevel();
-		if (rid == 1) {
-			setAttr("users", userServices.getAllUsersByPage(currentPage, 10));// 超级管理员获取用户
-			setAttr("counts", userServices.getCount());
-		} else if (rid == 2) {
-			setAttr("users", userServices.officeget(currentPage, 10));// 教务处管理员获取用户
-			setAttr("counts", userServices.officeget(currentPage, 10).size());
-		} else {
-			setAttr("users",
-					userServices.getBySc(currentPage, 10, user.getuSchool()));// 院级管理员获取用户
-			setAttr("counts", userServices.getCountBySc(user.getuSchool()));
-		}
-		setAttr("rid", rid);
+		setAttr("users", userServices.getAllUsersByPage(currentPage, 10, user));
+				setAttr("counts", userServices.getCount(user.getuRole()));
 		setAttr("currentPage", currentPage);
 		return "System/UserManger/userManger";
 	}
@@ -81,7 +70,7 @@ public class UserController extends BaseController {
 		setAttr("schools", schoolServices.getAll());
 		return "System/UserManger/userManger_add";
 	}
-	
+
 	/**
 	 * 编辑用户（加载数据并跳转页面） 加载角色信息，院系信息至前台过滤 【李成鹏添加】
 	 * 
@@ -116,32 +105,6 @@ public class UserController extends BaseController {
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * 清理非法用户（未完整）
-	 * 目前只能清除用户角色以及用户院系为空的用户
-	 * 【李成鹏添加】
-	 * @param response
-	 */
-	@RequestMapping("erroruser_delete")
-	public void erroruser_delete(HttpServletResponse response) {
-		try {
-			List<User> users = userServices.getErroruser();
-			if (users.size() < 1) {
-				response.getWriter().print(
-						Help.getScript("未找到非法用户", "userManger.html"));
-			} else {
-				for (User i : users) {
-					userServices.delete(i);
-				}
-
-				response.getWriter().print(
-						Help.getScript("清除成功", "userManger.html"));
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * 添加用户（提交处理） 【李成鹏添加】
@@ -160,11 +123,11 @@ public class UserController extends BaseController {
 		try {
 			user.setuRole(roleServices.getRoleByID(role.getrId()));// 获取角色实体
 			user.setuSchool(schoolServices.getSchoolByID(school.getsId()));// 获取院系实体
-			int i=userServices.getByuName(user.getuName()).size();
-			if(i!=0){
+			int i = userServices.getByuName(user.getuName()).size();
+			if (i != 0) {
 				response.getWriter().print(
 						Help.getScript("用户已存在！", "userManger.html"));
-			}else{
+			} else {
 				userServices.save(user);
 				response.getWriter().print(
 						Help.getScript("提交成功", "userManger.html"));
@@ -173,19 +136,6 @@ public class UserController extends BaseController {
 			e.printStackTrace();
 		}
 	}
-	
-	@RequestMapping("addOfficeMangerUser")
-	public void addOfficeMangerUser(HttpServletResponse response){
-		User user=new User();
-		user.setuName("");
-		try {
-			response.getWriter().print(Help.getScript("添加成功！", "roleManger.html"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 	/**
 	 * 编辑用户提交处理 【李成鹏添加】
 	 * 
@@ -196,9 +146,10 @@ public class UserController extends BaseController {
 	 */
 	@RequestMapping("userManger_edit_submit")
 	public void userManger_edit_submit(HttpServletResponse response, User user,
-			Role role, School school) {
+			Role role) {
+		int school=getAttr("sId").equals("")?0:Integer.parseInt(getAttr("sId").toString());
 		user.setuRole(roleServices.getRoleByID(role.getrId()));// 获取角色实体
-		user.setuSchool(schoolServices.getSchoolByID(school.getsId()));// 获取院系实体
+		user.setuSchool(schoolServices.getSchoolByID(school));// 获取院系实体
 		userServices.update(user);
 		try {
 			response.getWriter().print(

@@ -41,12 +41,6 @@ public interface BaseDao<T> {
 	T getById(int id);
 
 	/**
-	 * 按级别查询 【李成鹏添加】
-	 * @param level
-	 * @return
-	 */
-	List<T> getByLevel(int level);
-	/**
 	 * 按id查询
 	 * 
 	 * @param ids
@@ -90,29 +84,8 @@ public interface BaseDao<T> {
 	 */
 	List<T> get(int pageIndex, int count, String[] colums, String orderColum,
 			String... parmeters);
+
 	
-	//List<T> get(colums, String orderColum,
-		//	String in);
-	/**
-	 * 教务处分页获取实体数据【李成鹏添加】
-	 * @param pageIndex
-	 * @param count
-	 * @param colums
-	 * @param orderColum
-	 * @param parmeters
-	 * @return
-	 */
-	List<T> officeGet(int pageIndex, int count, String[] colums, String orderColum,
-			String... parmeters);
-	/**
-	 * 院级以下管理员获取用户角色 【李成鹏添加】
-	 * @param colums
-	 * @param orderColum
-	 * @param parmeters
-	 * @return
-	 */
-	List<T> getUserRols(String[] colums, String orderColum,
-			String... parmeters);
 	//多表sql语句查询  不推荐使用
 	/*List joinGet();*/
 	/**

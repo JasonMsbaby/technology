@@ -4,23 +4,11 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<meta name="renderer" content="webkit">
 <title>添加院系</title>
-<link rel="stylesheet" href="style/pintuer/css/pintuer.css">
-<script src="style/pintuer/js/jquery.js"></script>
-<script src="style/pintuer/js/pintuer.js"></script>
-<script src="style/pintuer/js/respond.js"></script>
-<script src="style/js/page.js"></script>
-<link type="image/x-icon" href="http://www.pintuer.com/favicon.ico"
-	rel="shortcut icon" />
-<link href="http://www.pintuer.com/favicon.ico" rel="bookmark icon" />
+<jsp:include page="../Other/dropin.jsp"></jsp:include>
 </head>
 
-<body onload="document.body.scrollTop='0px'">
+<body style="min-height: 400px">
 	<div class="panel">
 		<form action="">
 			<div class="panel-head icon-bookmark">添加院系</div>
@@ -28,7 +16,7 @@
 				<input id="ssid" type="hidden" name="sId" value="" /> <label
 					class="icon-user" style="float:left;">院系名</label> <input
 					type="text" class="input" name="sName" size="10" placeholder="院系名" /><br />
-				<input class="button" type="button" onclick="school_add(this)"
+				<input class="button bg-main" type="button" onclick="school_add(this)"
 					value="添加" />
 
 				<script type="text/javascript">
@@ -56,4 +44,8 @@
 
 					}
 				</script>
+			</div>
+		</form>
+	</div>
+</body>
 </html>

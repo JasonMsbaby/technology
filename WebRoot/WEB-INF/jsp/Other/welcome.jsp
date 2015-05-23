@@ -3,21 +3,9 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<meta name="renderer" content="webkit">
+<jsp:include page="../Other/dropin.jsp"></jsp:include>
 <title>欢迎页</title>
-<link rel="stylesheet" href="style/pintuer/css/pintuer.css">
-<script src="style/pintuer/js/jquery.js"></script>
-<script src="style/js/news.js"></script>
-<script src="style/pintuer/js/pintuer.js"></script>
-<script src="style/pintuer/js/respond.js"></script>
-<script src="style/pintuer/js/admin.js"></script>
-<script src="style/js/iframeSetting.js"></script>
 </head>
-
 <body style="background-color: white;">
 	<div class="line-big">
 		<div class="xm3">

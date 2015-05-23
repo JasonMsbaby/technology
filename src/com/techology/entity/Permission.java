@@ -19,7 +19,7 @@ public class Permission {
 	private String pAllow;//权限允许请求的连接
 	private int pShow;//是否在菜单栏中显示
 	private int pOrder;//排序顺序
-	
+	private String pIcon;//图标样式
 
 	public String getpContent() {
 		return pContent;
@@ -69,6 +69,12 @@ public class Permission {
 	}
 	public void setpAllow(String pAllow) {
 		this.pAllow = pAllow;
+	}
+	public String getpIcon() {
+		return pIcon;
+	}
+	public void setpIcon(String pIcon) {
+		this.pIcon = pIcon;
 	}
 	
 

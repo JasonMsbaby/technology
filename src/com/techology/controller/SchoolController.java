@@ -1,6 +1,7 @@
 package com.techology.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -11,8 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 import com.techology.base.BaseController;
+import com.techology.common.ExcelImport;
 import com.techology.common.Help;
+import com.techology.entity.Competition;
 import com.techology.entity.Major;
 import com.techology.entity.School;
 import com.techology.entity.User;
@@ -65,14 +71,16 @@ public class SchoolController extends BaseController {
 	public String schoolManger_add() {
 		return "School/schoolManger_add";
 	}
+
 	@RequestMapping("major_add")
-	public String major_add(){
-		int SID=Integer.parseInt(getAttr("sId").toString());
-		School school=schoolServices.getByID(SID);
-		setAttr("school",school);
+	public String major_add() {
+		int SID = Integer.parseInt(getAttr("sId").toString());
+		School school = schoolServices.getByID(SID);
+		setAttr("school", school);
 		setAttr("sId", SID);
 		return "School/majorManger_add";
 	}
+
 	/**
 	 * 编辑院系（加载数据并跳转页面） 加载角色信息，院系信息至前台过滤 【李成鹏添加】
 	 * 
@@ -97,25 +105,22 @@ public class SchoolController extends BaseController {
 	@RequestMapping("schoolManger_delete")
 	public void schoolManger_delete(HttpServletResponse response, School school) {
 		try {
-			List<User> users = userServices.getBySchool(school);
-			for (User user : users) {
-				userServices.delete(user);
-			}
-			List<Major> majors=majorServices.getBySID(school.getsId());
-			for(Major maj:majors){
-				majorServices.deleteById(maj.getmId());
-			}
 			schoolServices.delete(school);
 			response.getWriter().print(
 					Help.getScript("删除成功", "schoolManger.html"));
 		} catch (IOException e) {
-			e.printStackTrace();
+			try {
+				response.getWriter().print(
+						Help.getScript("删除失败", "schoolManger.html"));
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 
 	@RequestMapping("major_delete")
 	public void major_delete(HttpServletResponse response) {
-		int id=Integer.parseInt(getAttr("mId").toString());
+		int id = Integer.parseInt(getAttr("mId").toString());
 		try {
 			majorServices.deleteById(id);
 			response.getWriter().print(1);
@@ -131,7 +136,7 @@ public class SchoolController extends BaseController {
 	@RequestMapping("major_add_submit")
 	public void major_add(HttpServletResponse response) {
 		String major_name = getAttr("mName").toString();
-		int id=Integer.parseInt(getAttr("sid").toString());
+		int id = Integer.parseInt(getAttr("sid").toString());
 		Major major = new Major();
 		major.setmName(major_name);
 		major.setmSchool(schoolServices.getByID(id));
@@ -156,20 +161,20 @@ public class SchoolController extends BaseController {
 	 */
 	@RequestMapping("schoolManger_add_submit")
 	public void SchoolManger_add_submit(HttpServletResponse response) {
-		String sName=getAttr("sName").toString();
-		School school=new School();
-		List<School> slist=schoolServices.getBysName(sName);
-		if(slist.size()>=1){
+		String sName = getAttr("sName").toString();
+		School school = new School();
+		List<School> slist = schoolServices.getBysName(sName);
+		if (slist.size() >= 1) {
 			try {
 				response.getWriter().print(0);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}else{
+		} else {
 			try {
 				school.setsName(sName);
 				schoolServices.save(school);
-				int sID=schoolServices.getBysName(sName).get(0).getsId();
+				int sID = schoolServices.getBysName(sName).get(0).getsId();
 				response.getWriter().print(sID);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -186,14 +191,14 @@ public class SchoolController extends BaseController {
 	 */
 	@RequestMapping("schoolManger_major_submit")
 	public void SchoolManger_edit_submit(HttpServletResponse response) {
-		int id=Integer.parseInt(getAttr("id").toString());
-		int sid=Integer.parseInt(getAttr("sid").toString());
-		String name=getAttr("name").toString();
-		Major m=new Major();
+		int id = Integer.parseInt(getAttr("id").toString());
+		int sid = Integer.parseInt(getAttr("sid").toString());
+		String name = getAttr("name").toString();
+		Major m = new Major();
 		m.setmId(id);
 		m.setmName(name);
 		m.setmSchool(schoolServices.getSchoolByID(sid));
-		
+
 		try {
 			majorServices.update(m);
 			response.getWriter().print(1);
@@ -205,4 +210,44 @@ public class SchoolController extends BaseController {
 			}
 		}
 	}
+
+/*	@RequestMapping("schoolManger_addLittleSchool")
+	public void schoolManger_addLittleSchool(
+			@RequestParam CommonsMultipartFile file,
+			HttpServletResponse response) {
+		InputStream inputStream = null;
+		try {
+			inputStream = file.getInputStream();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		if (file.getOriginalFilename().endsWith("xls")) {
+			ExcelImport import1 = new ExcelImport(inputStream, 2,
+					file.getOriginalFilename());
+			List<ArrayList<String>> data = import1.getData();
+			for (ArrayList<String> array : data) {
+				Competition c = new Competition();
+				c.setcName(array.get(1).trim());
+				c.setcOrganize(array.get(2).trim());
+				c.setcLevel(array.get(3).trim());
+				c.setcOrganization(array.get(4).trim());
+				competitionServices.save(c);
+				try {
+					response.getWriter().print(
+							Help.getScript("上传成功", "competitionManager.html"));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			try {
+				response.getWriter().print(
+						Help.getScript("请上传xls文件", "competitionManager.html"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}
+	}
+	}*/
 }

@@ -2,11 +2,11 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.techology.entity.Reward">
+	<class name="com.techology.entity.Reward" table="technology_Reward">
 		<id name="rId">
 			<generator class="identity" />
 		</id>
-		<property name="rType" />
+		<!-- <property name="rType" /> -->
 		<property name="rLevel" />
 		<property name="rGrade" />
 		<property name="rTeacher" />

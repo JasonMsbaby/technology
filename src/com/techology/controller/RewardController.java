@@ -49,6 +49,8 @@ public class RewardController extends BaseController{
 	 * */
 	@RequestMapping("rewardSetting_add")
 	public String RewarSettingAdd(){
+		setAttr("grade", Help.GRADE);
+		setAttr("order", Help.ORDER);
 		return "Competition/RewardSetting_add";
 	}
 	
@@ -57,12 +59,17 @@ public class RewardController extends BaseController{
 	 * */
 	@RequestMapping("rewardSetting_add_submit")
 	public String rewarSettingAddSubmit(Reward reward){
-		
 		reward.setrTeacher(getAttr("rTeacher_q")+":"+getAttr("rTeacher_k"));
 		reward.setrStudent(getAttr("rStudent_q")+":"+getAttr("rStudent_f"));
-		rewardService.save(reward);
+		Reward reward2=rewardService.getByLevelAndGrade(reward.getrLevel(), reward.getrGrade());
+		if(reward2==null){
+			rewardService.save(reward);
+		}else{
+			reward.setrId(reward2.getrId());
+			rewardService.update(reward);
+		}
 		setAttr("info", Help.getAlert("添加成功！"));
-		return "Competition/RewardSetting_add";
+		return "redirect:rewardSetting_add.html";
 	}
 	
 	
@@ -89,6 +96,8 @@ public class RewardController extends BaseController{
 	@RequestMapping("rewardSetting_edit")
 	public String rewarSettingEdit(Reward reward){
 		setAttr("rewardd",rewardService.getRewardById(reward));
+		setAttr("grade", Help.GRADE);
+		setAttr("order", Help.ORDER);
 		return "Competition/RewardSetting_edit";
 	}
 	

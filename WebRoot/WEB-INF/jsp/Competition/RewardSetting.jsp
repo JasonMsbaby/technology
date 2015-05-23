@@ -5,19 +5,8 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<meta name="renderer" content="webkit">
 <title>奖励设置</title>
-<link rel="stylesheet" href="style/pintuer/css/pintuer.css">
-<script src="style/pintuer/js/jquery.js"></script>
-<script src="style/pintuer/js/pintuer.js"></script>
-<script src="style/pintuer/js/respond.js"></script>
-<link type="image/x-icon" href="http://www.pintuer.com/favicon.ico"
-	rel="shortcut icon" />
-<link href="http://www.pintuer.com/favicon.ico" rel="bookmark icon" />
+<jsp:include page="../Other/dropin.jsp"></jsp:include>
 </head>
 <body>
 	<div class="panel">
@@ -36,7 +25,7 @@
 				<c:if test="${fn:length(rewardList)>=1}">
   				<tr>
   					<th>序号</th>
-  					<th>比赛类型</th>
+  					<!-- <th>比赛类型</th> -->
   					<th>比赛水平</th>
   					<th>获奖等级</th>
   					<th>老师奖励</th>
@@ -46,7 +35,7 @@
   				<c:forEach items="${rewardList}" var="reward" varStatus="Status">
   				<tr>
   					<td>${Status.index+1}</td>
-  					<td>${reward.rType}</td>
+  					<%-- <td>${reward.rType}</td> --%>
   					<td>${reward.rLevel}</td>
   					<td>${reward.rGrade}</td>
   					<td><label class="icon-cny (alias)"> 奖金</label>：${fn:split(reward.rTeacher, ':')[0]}元/队  <label class="icon-star-o" > 课时</label>：${fn:split(reward.rTeacher, ':')[1]}个/人</td>

@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
  * @author Jason
  * 
  */
-public class ExcelUtil {
+public class ExcelExport {
 
 	private int SPLIT_COUNT = 15; // Excel每个工作表的行数
 
@@ -42,7 +42,7 @@ public class ExcelUtil {
 	// 有参构造器，限定了使用此类时，必须首先构建好两个list参数，并将所需数据放入上述两个list。
 	// 其中fieldName这个list可以使用泛型约束List<String>
 	// fieldData这个可以使用泛型约束List<List<Object>>
-	public ExcelUtil(ArrayList fieldName, ArrayList fieldData, String fileName,
+	public ExcelExport(ArrayList fieldName, ArrayList fieldData, String fileName,
 			String title, ArrayList<Integer> columWidth) {
 		this.fieldName = fieldName;
 		this.fieldData = fieldData;

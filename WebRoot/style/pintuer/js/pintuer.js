@@ -257,8 +257,9 @@ $(function(){
 		var win=$(detail);
 		win.find(".dialog").addClass("open");
 		$("body").append(win);
-		var x=parseInt($(window).width()-win.outerWidth())/2;
-		var y=parseInt($(window).height()-win.outerHeight())/2;
+		var x=parseInt($(window).width()-win.width())/2;
+		var y=parseInt($(window).height()-win.height())/2;
+		//alert(x);
 		if (y<=10){y="10"}
 		win.css({"left":x,"top":y});
 		win.find(".dialog-close,.close").each(function(){

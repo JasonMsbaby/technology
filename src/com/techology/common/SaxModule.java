@@ -82,6 +82,7 @@ public class SaxModule {
 			String type = "";                 
 			String link = "";
 			String allow="";
+			String icon="";
 			int show = 0;
 			int order = 0;
 			if (qName != "nav") {
@@ -92,6 +93,7 @@ public class SaxModule {
 				show = Integer.parseInt(attributes.getValue("show"));
 				order = Integer.parseInt(attributes.getValue("order"));
 				allow=attributes.getValue("allow");
+				icon=attributes.getValue("icon");
 			}
 			if ("nav1".equals(qName)) {
 				nav1 = new Permission();
@@ -102,6 +104,7 @@ public class SaxModule {
 				nav1.setpShow(show);
 				nav1.setpOrder(order);
 				nav1.setpAllow(allow);
+				nav1.setpIcon(icon);
 			}
 			if ("nav2".equals(qName)) {
 				nav2 = new Permission();
@@ -113,6 +116,7 @@ public class SaxModule {
 				nav2.setpShow(show);
 				nav2.setpOrder(order);
 				nav2.setpAllow(allow);
+				nav2.setpIcon(icon);
 			}
 			if ("nav3".equals(qName)) {
 				nav3 = new Permission();
@@ -124,6 +128,7 @@ public class SaxModule {
 				nav3.setpShow(show);
 				nav3.setpOrder(order);
 				nav3.setpAllow(allow);
+				nav3.setpIcon(icon);
 			}
 		}
 

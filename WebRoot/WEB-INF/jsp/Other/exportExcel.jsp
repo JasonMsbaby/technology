@@ -3,22 +3,8 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<meta name="renderer" content="webkit">
+<jsp:include page="../Other/dropin.jsp"></jsp:include>
 <title>科研管理系统-后台管理</title>
-<link rel="stylesheet" href="style/pintuer/css/pintuer.css">
-<link rel="stylesheet" href="style/pintuer/css/admin.css">
-<script src="style/pintuer/js/jquery.js"></script>
-<script src="style/js/news.js"></script>
-<script src="style/pintuer/js/pintuer.js"></script>
-<script src="style/pintuer/js/respond.js"></script>
-<script src="style/pintuer/js/admin.js"></script>
-<link type="image/x-icon" href="http://www.pintuer.com/favicon.ico"
-	rel="shortcut icon" />
-<link href="http://www.pintuer.com/favicon.ico" rel="bookmark icon" />
 </head>
 <script type="text/javascript">
 	$(function() {
@@ -34,10 +20,14 @@
 		<div class="tab-head">
 			<strong>导出报表</strong> <span class="tab-more"> </span>
 			<ul class="tab-nav">
-				<li class="active"><a href="#tab-1">竞赛级别认定、承办单位汇总表</a></li>
-				<li><a href="#tab-2">竞赛类别等级、奖励规定一览表</a></li>
-				<li><a href="#tab-3">学生奖励发放表(学生)</a></li>
-				<li><a href="#tab-4">竞赛国家级和省级奖励统计表(教师)</a></li>
+				<li class="active"><a href="#tab-1">竞赛级别认定、承办单位汇总表</a>
+				</li>
+				<li><a href="#tab-2">竞赛类别等级、奖励规定一览表</a>
+				</li>
+				<li><a href="#tab-3">学生奖励发放表(学生)</a>
+				</li>
+				<li><a href="#tab-4">竞赛国家级和省级奖励统计表(教师)</a>
+				</li>
 			</ul>
 		</div>
 		<div style="height: 100%" class="tab-body">
@@ -54,7 +44,7 @@
 							<label for="username">获奖年份</label>
 						</div>
 						<div class="field">
-							<select name="years"  class="input years">
+							<select name="years" class="input years">
 							</select>
 						</div>
 					</div>
@@ -64,10 +54,9 @@
 						</div>
 						<div class="field">
 							<select name="grade" class="input">
-								<option>国家级</option>
-								<option>省级</option>
-								<option>市厅级</option>
-								<option>校级</option>
+								<c:forEach items="${grade}" var="li">
+									<option value="${li}">${li}</option>
+								</c:forEach>
 							</select>
 						</div>
 					</div>
@@ -84,7 +73,7 @@
 							<label for="username">获奖年份</label>
 						</div>
 						<div class="field">
-							<select name="years"  class="input years">
+							<select name="years" class="input years">
 							</select>
 						</div>
 					</div>

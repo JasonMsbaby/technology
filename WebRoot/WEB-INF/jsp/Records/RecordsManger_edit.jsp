@@ -4,18 +4,11 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<meta name="renderer" content="webkit">
 <title>成果编辑</title>
-<script type="text/javascript" src="style/js/jquery-1.7.2.min.js"></script>
+<jsp:include page="../Other/dropin.jsp"></jsp:include>
 <script type="text/javascript" src="style/js/record_edit.js"></script>
 <link rel="stylesheet" href="style/datepicker/css/jquery-ui.css"
 	type="text/css" />
-<script src="style/pintuer/js/pintuer.js"></script>
-<link rel="stylesheet" href="style/pintuer/css/pintuer.css">
 <script type="text/javascript"
 	src="style/datepicker/js/jquery-ui-datepicker.js"></script>
 <style type="text/css">
@@ -54,7 +47,8 @@
 					</div>
 
 					<div class="field">
-						<select  onchange="gradeChange()" id="competition_name" name="reCompetition.cID" class="input">
+						<select onchange="gradeChange()" id="competition_name"
+							name="reCompetition.cID" class="input">
 							<c:forEach items="${competition}" var="li">
 								<c:choose>
 									<c:when test="${li.cName==record.reCompetition.cName}">
@@ -75,7 +69,8 @@
 						<label for="username">获奖等级</label>
 					</div>
 					<div class="field">
-						<select  onchange="gradeChange()" id="competition_grade" name="reGrade" class="input">
+						<select onchange="gradeChange()" id="competition_grade"
+							name="reGrade" class="input">
 							<c:choose>
 								<c:when test="${record.reGrade=='特等奖'}">
 									<option selected="selected">特等奖</option>

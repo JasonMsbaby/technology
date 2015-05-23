@@ -11,4 +11,6 @@ public interface CompetitionDao extends BaseDao<Competition> {
 	List<Competition> getAllByLevelLike(String grade);
 
 	List<Competition> getAllByLevelLike();
+
+	List<Competition> likeSearch(String keyword);
 }

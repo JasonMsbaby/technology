@@ -17,7 +17,6 @@ public class Records {
 	private String reGrade;//获奖等级 一二三等奖
 	private String reJoinTime;//参加时间
 	private String reWriteTime;//填写时间
-	private String reAdress;//比赛地点
 	private String reWritePerson;//提交人
 	private int reSchool;//该记录属于什么院系的成果
 	private String reCheckPerson;//院级审核人
@@ -139,12 +138,6 @@ public class Records {
 	}
 	public void setReTeacherInfo(List<TeacherInfo> reTeacherInfo) {
 		this.reTeacherInfo = reTeacherInfo;
-	}
-	public String getReAdress() {
-		return reAdress;
-	}
-	public void setReAdress(String reAdress) {
-		this.reAdress = reAdress;
 	}
 	public String getReProjectName() {
 		return reProjectName;

@@ -19,6 +19,20 @@
 <link type="image/x-icon" href="http://www.pintuer.com/favicon.ico"
 	rel="shortcut icon" />
 <link href="http://www.pintuer.com/favicon.ico" rel="bookmark icon" />
+<script type="text/javascript">
+	function SetWinHeight(obj) {
+		var win = obj;
+		if (document.getElementById) {
+			if (win && !window.opera) {
+				if (win.contentDocument
+						&& win.contentDocument.body.offsetHeight)
+					win.height = win.contentDocument.body.offsetHeight;
+				else if (win.Document && win.Document.body.scrollHeight)
+					win.height = win.Document.body.scrollHeight;
+			}
+		}
+	}
+</script>
 </head>
 
 <body>
@@ -34,16 +48,16 @@
 					target="_self">前台首页</a> <a class="button button-little bg-yellow"
 					href="exit.html">注销登录</a> </span>
 				<ul class="nav nav-inline admin-nav">
-					<li class="active"><a href="index.html" class="icon-home">首页
+					<li class="active"><a href="index.html" class="icon-home"> 首页
 					</a> <c:forEach items="${list}" var="li1" varStatus="status">
 							<c:if test="${li1.pType==0&&li1.pShow==1}">
-								<li><a href="#" class="icon-home">${li1.pContent}</a>
+								<li><a href="#" class="${li1.pIcon}"> ${li1.pContent}</a>
 									<ul>
 										<c:forEach items="${list}" var="li2">
 											<c:if test="${li2.pType==li1.pId&&li2.pShow==1}">
 												<li style="border-bottom:1px solid #e4e4e4;" class="nav_two"><a
 													class="icon-caret-right" target="iframepage"
-													href="${li2.pLink}.html">${li2.pContent}</a>
+													href="${li2.pLink}.html"> ${li2.pContent}</a>
 											</c:if>
 										</c:forEach>
 									</ul></li>
@@ -58,8 +72,7 @@
 					<li><a id="adressOne" href="#"
 						class="icon-external-link-square">首页</a></li>
 					<li id="adressTwo" href="#" class="icon-external-link">后台首页</li>
-					<a id="news_2" target="iframepage"
-						style="color:red;"></a>
+					<a id="news_2" target="iframepage" style="color:red;"></a>
 
 				</ul>
 			</div>
@@ -67,9 +80,9 @@
 	</div>
 
 	<div class="admin">
-		<iframe name="iframepage" id="iframepage" onLoad="iFrameHeight()"
-			style="width: 100%;margin: 0;padding: 0;" src="welcome.html"
-			frameborder="0" scrolling="no"></iframe>
+		<iframe width="100%" align="center" height="200" id="iframepage" name="iframepage"
+			onload="Javascript:SetWinHeight(this)" frameborder="0" scrolling="no"
+			src="welcome.html"></iframe>
 	</div>
 </body>
 </html>

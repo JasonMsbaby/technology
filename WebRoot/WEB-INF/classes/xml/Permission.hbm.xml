@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.techology.entity.Permission">
+	<class name="com.techology.entity.Permission" table="technology_Permission">
 		<id name="pId">
 			<generator class="assigned" />
 		</id>
@@ -12,5 +12,6 @@
 		<property name="pAllow" />
 		<property name="pShow" />
 		<property name="pOrder" />
+		<property name="pIcon" />
 	</class>
 </hibernate-mapping> 

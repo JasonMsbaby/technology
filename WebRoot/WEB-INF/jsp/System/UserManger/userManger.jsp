@@ -4,34 +4,15 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<meta name="renderer" content="webkit">
+<jsp:include page="../../Other/dropin.jsp"></jsp:include>
 <title>用户管理</title>
-<link rel="stylesheet" href="style/pintuer/css/pintuer.css">
-<script src="style/pintuer/js/jquery.js"></script>
-<script src="style/pintuer/js/pintuer.js"></script>
-<script src="style/pintuer/js/respond.js"></script>
-<script src="style/js/page.js"></script>
-<link type="image/x-icon" href="http://www.pintuer.com/favicon.ico"
-	rel="shortcut icon" />
-<link href="http://www.pintuer.com/favicon.ico" rel="bookmark icon" />
 </head>
-
-<body onload="document.body.scrollTop='0px'">
+<body >
 	<div class="panel">
 		<div class="panel-head icon-bookmark">
-			用户管理
-			<a style="margin-left: 5px;color:blue;font-size: 10px;"
-				href="userManger.html">刷新</a>
-			 <a style="float: right;"
+			用户管理 <a style="margin-left: 5px;color:blue;font-size: 10px;"
+				href="userManger.html">刷新</a> <a style="float: right;"
 				class="button border-blue button-little" href="userManger_add.html">添加用户</a>
-				<!-- <a style="float: right;"
-				class="button border-red button-little" href="erroruser_delete.html">清理非法用户</a>
-				<a style="float: right;margin-right: 5px;"
-				class="button border-red button-little"  href="addOfficeMangerUser.html" onclick="return confirm('教务处涉及诸多权限，确定要添加教务处管理员用户？')">！添加教务处用户</a> -->
 		</div>
 		<div class="panel-body">
 			<table class="table table-hover">
@@ -40,6 +21,7 @@
 					<th>用户名</th>
 					<th>用户密码</th>
 					<th>用户角色</th>
+					<th>角色级别</th>
 					<th>用户院系</th>
 					<th>操作</th>
 				</tr>
@@ -49,16 +31,13 @@
 						<td>${li.uName}</td>
 						<td>${li.uPwd}</td>
 						<td>${li.uRole.rName}</td>
+						<td>${li.uRole.rLevel}</td>
 						<td>${li.uSchool.sName}</td>
 						<td><a class="button border-blue button-little"
-							href="userManger_edit.html?uId=${li.uId}">编辑</a> 
-							<c:if test="${li.uRole.rLevel>1}">
-							<a
+							href="userManger_edit.html?uId=${li.uId}">编辑</a> <a
 							class="button border-red button-little"
 							href="userManger_delete.html?uId=${li.uId}"
-							onclick="return confirm('确认删除？')">删除</a>
-							</c:if>
-						</td>
+							onclick="return confirm('确认删除？')">删除</a></td>
 					</tr>
 				</c:forEach>
 			</table>

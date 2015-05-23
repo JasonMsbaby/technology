@@ -12,6 +12,7 @@ import org.hibernate.dialect.function.VarArgsSQLFunction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.techology.common.Help;
 import com.techology.dao.CompetitionDao;
 import com.techology.dao.RecordsDao;
 import com.techology.dao.RewardDao;
@@ -52,10 +53,10 @@ public class RecordsServices {
 	}
 
 	public List<Records> getByPage(int page, User currentUser) {
-		int level = currentUser.getuRole().getrLevel();
-		if (level == 1 || level == 2) {// 教务处管理员或者超级管理员
+		String level = currentUser.getuRole().getrLevel();
+		if (level.equals(Help.XIAOJI)) {// 校级管理员
 			return recordsDao.get((page - 1) * 10, 10);
-		} else if (level == 3) {// 院系管理员
+		} else if (level.equals(Help.YUANJI)) {// 院系管理员
 			return recordsDao.get((page - 1) * 10, 10,
 					new String[] { "reSchool" }, "reId",
 					String.valueOf(currentUser.getuSchool().getsId()));
@@ -139,23 +140,15 @@ public class RecordsServices {
 	 * @return
 	 */
 	public List<Records> getWaitCheckByPage(int currentPage, User currentUser) {
-		int roleLevel = currentUser.getuRole().getrLevel();
-		if (roleLevel == 1) {// 当前用户为超级管理员，获取所有的自己没有审核的
+		String roleLevel = currentUser.getuRole().getrLevel();
+		if (roleLevel.equals(Help.XIAOJI)) {// 当前用户为校级管理员，获取所有的自己没有审核，院级审核通过的
 			return recordsDao.get((currentPage - 1) * 10, 10, new String[] {
 					"reCheckStatusAdmin", "reCheckStatus" },
 					"reWriteTime desc", "0", "1");
-		} else if (roleLevel == 2) {// 当前用户为教务处管理员，获取所有的自己没有审核，院级审核通过的
-			return recordsDao.get((currentPage - 1) * 10, 10, new String[] {
-					"reCheckStatusAdmin", "reCheckStatus" },
-					"reWriteTime desc", "0", "1");
-		} else if (roleLevel == 3) {// 当前用户为院级管理员//获取本院的自己没有审核的
-			return recordsDao
-					.query("from Records where reCheckStatus=?  or reCheckStatusAdmin=? and reSchool=?",
-							"0", "-1", String.valueOf(currentUser.getuSchool()
-									.getsId()));
-/*			return recordsDao.get((currentPage - 1) * 10, 10, new String[] {
-					"reCheckStatus", "reSchool" }, "reWriteTime desc", "0",
-					String.valueOf(currentUser.getuSchool().getsId()));*/
+		} else if (roleLevel.equals(Help.YUANJI)) {// 当前用户为院级管理员//获取本院的自己没有审核的
+			return recordsDao.query(
+					"from Records where reCheckStatus=?  and reSchool=?", "0",
+					String.valueOf(currentUser.getuSchool().getsId()));
 		} else {// 当前用户为普通教师，没有权限进行审核
 			return null;
 		}
@@ -166,16 +159,16 @@ public class RecordsServices {
 	 * 获取待审核记录的数目
 	 */
 	public String getWaitCheckCount(User currentUser) {
-		int level = currentUser.getuRole().getrLevel();
+		String level = currentUser.getuRole().getrLevel();
 		String str = "";
-		if (level == 1 || level == 2) {// 超级管理员或者教务处管理员
+		if (level.equals(Help.XIAOJI)) {// 校级管理员
 			str += "{";
 			str += "\"role\":" + 2 + ",";
 			str += "\"content\":[{";
 			int waitCount = recordsDao.getCount(new String[] { "reCheckStatus",
 					"reCheckStatusAdmin" }, "1", "0");
 			str += "\"wait\":" + waitCount + "}]}";
-		} else if (level == 3) {// 院级管理员
+		} else if (level.equals(Help.YUANJI)) {// 院级
 			str += "{";
 			str += "\"role\":" + 3 + ",";
 			str += "\"content\":[{";
@@ -187,7 +180,7 @@ public class RecordsServices {
 					String.valueOf(currentUser.getuSchool().getsId()));
 			str += "\"wait\":" + waitCount + ",";
 			str += "\"pass\":" + passCount + "}]}";
-		} else {// 教师用户
+		} else {// 教师
 			str += "{";
 			str += "\"role\":" + 4 + ",";
 			str += "\"content\":[{";

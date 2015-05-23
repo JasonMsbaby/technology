@@ -146,57 +146,9 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 		return query.list();
 	}
 
-	/**
-	 * 教务处获取实体 【李成鹏添加】
-	 */
-	public List<T> officeGet(int pageIndex, int count, String[] colums,
-			String orderColum, String... parmeters) {
-		String hql = "FROM " + clazz.getSimpleName() + " where ";
-		for (String str : colums) {
-			hql += str + ">? AND ";
-		}
-		hql = hql.substring(0, hql.length() - 4);
-		hql += " ORDER BY " + orderColum;
-		Query query = getSession().createQuery(hql).setFirstResult(pageIndex)
-				.setMaxResults(count);
-		for (int i = 0; i < parmeters.length; i++) {
-			query.setString(i, parmeters[i]);
-		}
-		//System.out.println(hql);
-		return query.list();
-	}
 
-	/**
-	 * 院级以下管理员获取实体 【李成鹏添加】
-	 */
-	public List<T> getUserRols(String[] colums, String orderColum,
-			String... parmeters) {
-		String hql = "FROM " + clazz.getSimpleName();
-		hql += " WHERE ";
-		for (String str : colums) {
-			hql += str + ">? AND ";
-		}
-		hql = hql.substring(0, hql.length() - 4);
-		if (orderColum != "") {
-			hql += " ORDER BY " + orderColum;
-		}
-		Query query = getSession().createQuery(hql);
-		for (int i = 0; i < parmeters.length; i++) {
-			// System.out.println(parmeters[i]);
-			query.setString(i, parmeters[i]);
-		}
 
-		List<T> list = query.list();
-		return list;
-	}
-	/*
-	 * @Override public List joinGet() { String hql = "select new map()"; for
-	 * (String str : colums) { hql += str + "=? AND "; } hql = hql.substring(0,
-	 * hql.length() - 4); hql += " ORDER BY " + orderColum; Query query =
-	 * getSession().createQuery(hql).setFirstResult(pageIndex)
-	 * .setMaxResults(count); for (int i = 0; i < parmeters.length; i++) {
-	 * query.setString(i, parmeters[i]); } return query.list(); }
-	 */
+
 	/**
 	 *  【去重查询】
 	 *  @author Andyxq

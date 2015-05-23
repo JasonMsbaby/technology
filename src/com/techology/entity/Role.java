@@ -13,7 +13,7 @@ public class Role {
 	private int rId;//角色ID
 	private String rName;//角色名称
 	private String rPermission;//角色权限
-	private int rLevel;//角色级别
+	private String rLevel;//角色级别  分为 校级 院级 教师
 	public int getrId() {
 		return rId;
 	}
@@ -32,12 +32,13 @@ public class Role {
 	public void setrPermission(String rPermission) {
 		this.rPermission = rPermission;
 	}
-	public int getrLevel() {
+	public String getrLevel() {
 		return rLevel;
 	}
-	public void setrLevel(int rLevel) {
+	public void setrLevel(String rLevel) {
 		this.rLevel = rLevel;
 	}
+	
 	
 	
 }

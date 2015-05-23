@@ -1,6 +1,6 @@
 //消息动态处理提醒
 $(function() {
-	run();
+	//run();
 	var interval;
 	function run() {
 		interval = setInterval(fun, "2000");

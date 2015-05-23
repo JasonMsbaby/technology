@@ -4,30 +4,19 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<meta name="renderer" content="webkit">
+<jsp:include page="../Other/dropin.jsp"></jsp:include>
 <title>增加项目奖励-页面设置</title>
-<link rel="stylesheet" href="style/pintuer/css/pintuer.css">
-<script src="style/pintuer/js/jquery.js"></script>
-<script src="style/pintuer/js/pintuer.js"></script>
-<script src="style/pintuer/js/respond.js"></script>
-<script src="style/js/page.js"></script>
-<link type="image/x-icon" href="http://www.pintuer.com/favicon.ico"
-	rel="shortcut icon" />
-<link href="http://www.pintuer.com/favicon.ico" rel="bookmark icon" />
+
 </head>
 
-<body onload="document.body.scrollTop='0px'">
+<body >
 	${info}
 	<div class="panel">
 		<div class="panel-head icon-plus">增加项目奖励</div>
 		<div class="panel-body">
 
 			<form action="rewardSetting_add_submit.html" method="post">
-				<div class="form-group">
+				<!-- <div class="form-group">
 					<div class="label">
 						<label class="icon-share-alt"> 比赛类型</label>
 					</div>
@@ -35,14 +24,19 @@
 						<input type="text" class="input" id="rLevel" name="rType"
 							size="10" placeholder="如：团体赛" data-validate="required:必填" />
 					</div>
-				</div>
+				</div> -->
 				<div class="form-group">
 					<div class="label">
-						<label class="icon-signal"> 比赛水平</label>
+						<label class="icon-signal"> 比赛级别</label>
 					</div>
 					<div class="field">
-						<input type="text" class="input" id="rLevel" name="rLevel"
-							size="10" placeholder="如：国家级A级" data-validate="required:必填" />
+						<select class="input" id="rLevel" name="rLevel">
+							<c:forEach items="${grade}" var="li">
+								<option value="${li}">${li}</option>
+							</c:forEach>
+						</select>
+						<!-- <input type="text" class="input" id="rLevel" name="rLevel"
+							size="10" placeholder="如：国家级A类" data-validate="required:必填" /> -->
 					</div>
 				</div>
 				<div class="form-group">
@@ -50,8 +44,15 @@
 						<label class="icon-thumbs-o-up"> 获奖等级</label>
 					</div>
 					<div class="field">
-						<input type="text" class="input" id="rGrade" name="rGrade"
-							size="10" placeholder="如：一等奖" data-validate="required:必填" />
+					
+						<select class="input" id="rGrade" name="rGrade">
+							<c:forEach items="${order}" var="li">
+								<option value="${li}">${li}</option>
+							</c:forEach>
+						</select>
+						
+						<!-- <input type="text" class="input" id="rGrade" name="rGrade"
+							size="10" placeholder="如：一等奖" data-validate="required:必填" /> -->
 					</div>
 				</div>
 				<div class="line-big">

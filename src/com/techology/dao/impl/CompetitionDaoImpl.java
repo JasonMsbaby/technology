@@ -30,5 +30,10 @@ public class CompetitionDaoImpl extends BaseDaoImpl<Competition> implements Comp
 		Session session=sessionFactory.getCurrentSession();
 		return session.createQuery("from Competition as c where c.cLevel like '国家级%' or cLevel like '省级%'").list();
 	}
+	@Override
+	public List<Competition> likeSearch(String keyword) {
+		Session session=sessionFactory.getCurrentSession();
+		return session.createQuery("from Competition as c where c.cName like '%"+keyword+"%'").list();
+	}
 	
 }
