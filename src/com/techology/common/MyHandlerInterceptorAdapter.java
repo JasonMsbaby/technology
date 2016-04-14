@@ -122,15 +122,15 @@ public class MyHandlerInterceptorAdapter extends HandlerInterceptorAdapter {
 		// 如果模块列表为空就初始化列表，初始化超级管理员
 		if (permissionServices.getAll().size() == 0) {
 			permissionServices.init();
-			/*Role role=new Role();
-			role.setrLevel(2);
+			Role role=new Role();
+			role.setrLevel("校级");
 			role.setrName("教务处管理员");
 			roleServices.save(role);
 			User user=new User();
 			user.setuName("admin");
 			user.setuRole(role);
 			user.setuPwd("123");
-			userServices.save(user);*/
+			userServices.save(user);
 		}
 	}
 
